@@ -1,0 +1,23 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: Caros;
+  src: url(./assets/Fonts/Caros.otf);
+
+  font-family: CarosBold;
+  src: url(./assets/Fonts/CarosBold.otf);
+}
+
+body {
+  margin: 0;
+  font-family: Caros;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: Caros;
+}
