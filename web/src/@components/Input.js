@@ -1,27 +1,34 @@
-import React, { useReducer, useEffect } from "react";
-import styled, { css } from "styled-components";
+import React, { useState, useReducer, useEffect } from "react";
+import { InputAdornment, IconButton, TextField } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { inputStyles } from "@styles";
-import { Icon } from "@components";
 import { validate } from "@helpers/validators";
 
-const MainContainer = styled.div`
-  display: flex;
-  ${(props) => inputStyles(props, css).container}
-`;
-
-const IconContainer = styled.div`
-  display: flex;
-  width: 45px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledInput = styled.input`
-  ${(props) => props.wid && `width: ${props.wid}`};
-  ${(props) => props.hasBorder && `border: ${props.hasBorder}`};
-  ${(props) => inputStyles(props, css).input};
-`;
+const useStyles = makeStyles({
+  inputTextField: {
+    width: "48%",
+  },
+  inputTextFieldLarge: {
+    width: "100%",
+  },
+  validatorList: {
+    color: "#f44336",
+    width: "100%",
+    fontSize: "12px",
+  },
+  textField: {
+    marginBottom: "0px",
+  },
+  focused: {},
+  outlinedInput: {
+    "&$focused $notchedOutline": {
+      border: "1px solid #8b5cf6",
+    },
+  },
+  notchedOutline: {},
+});
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -43,17 +50,7 @@ const inputReducer = (state, action) => {
   }
 };
 
-const MyInput = (props) => {
-  const {
-    limit,
-    icon,
-    title,
-    length,
-    titleTextSize,
-    titleFontFamily,
-    iconSize,
-  } = props;
-
+function Input(props) {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || "",
     isTouched: false,
@@ -61,7 +58,6 @@ const MyInput = (props) => {
   });
   const { value, isValid } = inputState;
   const { id, onInput } = props;
-
   useEffect(() => {
     onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
@@ -80,70 +76,87 @@ const MyInput = (props) => {
     });
   };
 
+  const classes = useStyles();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   return (
-    <div style={{ width: "100%" }}>
-      {title && (
-        <p
-          style={{
-            fontWeight: "bold",
-            color: "#ABABAB",
-            fontSize: titleTextSize ? titleTextSize : 12,
-            letterSpacing: 1,
-            marginBottom: 8,
-            fontFamily: titleFontFamily ? titleFontFamily : "SFProDisplay",
+    <>
+      {props.isPassword ? (
+        <TextField
+          type={showPassword ? "text" : "password"}
+          placeholder="**************"
+          variant="outlined"
+          InputProps={{
+            classes: {
+              root: classes.outlinedInput,
+              focused: classes.focused,
+              notchedOutline: classes.notchedOutline,
+            },
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
-        >
-          {title.toUpperCase()}
-        </p>
-      )}
-
-      <MainContainer {...props}>
-        {icon && (
-          <IconContainer>
-            <Icon type={props.icon} size={iconSize ? iconSize : 16} />
-          </IconContainer>
-        )}
-
-        <StyledInput
-          placeholderTextColor={
-            props.rounded ? "rgba(30, 4, 7, 0.5)" : "#707070"
+          className={
+            props.width === "large"
+              ? classes.inputTextFieldLarge
+              : classes.inputTextField2
           }
-          {...props}
           onChange={changeHandler}
-          onblur={touchHandler}
+          onBlur={touchHandler}
           value={inputState.value}
+          error={!inputState.isValid && inputState.isTouched ? true : false}
+          helperText={
+            !inputState.isValid && inputState.isTouched && props.helperText
+          }
         />
-
-        {props.limit && (
-          <p style={{ fontSize: 16, letterSpacing: 0.2 }}>
-            {length}/{limit}
-          </p>
-        )}
-      </MainContainer>
-      {!inputState.isValid && inputState.isTouched && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-            margin: "6px 0",
+      ) : (
+        <TextField
+          id={props.type}
+          placeholder={props.placeholder}
+          variant="outlined"
+          className={
+            (props.width === "small" && classes.inputTextField) ||
+            (props.width === "large" && classes.inputTextFieldLarge)
+          }
+          onChange={changeHandler}
+          onBlur={touchHandler}
+          value={inputState.value}
+          error={!inputState.isValid && inputState.isTouched ? true : false}
+          helperText={
+            !inputState.isValid && inputState.isTouched && props.helperText
+          }
+          InputProps={{
+            classes: {
+              root: classes.outlinedInput,
+              focused: classes.focused,
+              notchedOutline: classes.notchedOutline,
+            },
           }}
-        >
-          <Icon type="close-red" size="9px" />
-          <p
-            style={{
-              margin: "0 0 0 10px",
-              color: "#EB5757",
-              fontWeight: "400",
-              fontSize: "14px",
-              wordSpacing: "0.5px",
-            }}
-          >
-            {!inputState.isValid && inputState.isTouched && props.errMessage}
-          </p>
-        </div>
+        />
       )}
-    </div>
+      {!inputState.isValid &&
+        inputState.isTouched &&
+        props.inputName === "UserName" && (
+          <div className={classes.validatorList}>
+            <ul>
+              <li>name invalid!</li>
+              <li>No spaces allowed.</li>
+              <li>Min length 3 characters"</li>
+            </ul>
+          </div>
+        )}
+    </>
   );
-};
-export default MyInput;
+}
+
+export default Input;
