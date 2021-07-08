@@ -7,9 +7,6 @@ const { Schema } = mongoose;
 
 const user = new Schema(
   {
-    fullName: {
-      type: String,
-    },
     userName: {
       type: String,
     },
@@ -19,6 +16,12 @@ const user = new Schema(
       lowercase: true,
       trim: true,
       unique: true,
+    },
+    image: {
+      type: String,
+    },
+    password: {
+      type: String,
     },
   },
   {
@@ -38,9 +41,9 @@ user.methods.getAuthToken = function () {
 const User = mongoose.model("user", user);
 const validateUser = (user) => {
   const schema = {
-    fullName: Joi.string().min(3).max(255).required(),
     userName: Joi.string().min(3).max(255).required(),
-    email: Joi.string().email().min(2).max(255).required(),
+    email: Joi.string().min(4).max(255).required(),
+    password: Joi.string().min(3).max(255),
   };
   return Joi.validate(user, schema);
 };

@@ -6,6 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 import store from "../src/@store";
 import App from "./App";
 import "./index.css";
+import { initializeFirebase } from "./@helpers/push-notifications";
+
+initializeFirebase();
 
 ReactDOM.render(
   <React.StrictMode>

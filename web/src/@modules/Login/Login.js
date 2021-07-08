@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
@@ -7,26 +7,16 @@ import { useDispatch } from "react-redux";
 import { Icon } from "@components";
 import loginBg from "assets/icons/login-bg.png";
 import { socialLogin } from "@store/auth/AuthActions";
-import {
-  VALIDATOR_EMAIL,
-  VALIDATOR_MINLENGTH,
-  VALIDATOR_REQUIRE,
-  VALIDATOR_NO_SPACE,
-  VALIDATOR_CONFIRM_PASSWORD,
-} from "@helpers/validators";
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "@helpers/validators";
 import { useForm } from "@customeHooks";
 import { Input } from "@components";
-import { submitRegister } from "@store/auth/AuthActions";
+import { submitLogin } from "@store/auth/AuthActions";
 
 const Signup = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [formState, inputHandler] = useForm(
     {
-      userName: {
-        value: "",
-        isValid: false,
-      },
       email: {
         value: "",
         isValid: false,
@@ -35,13 +25,18 @@ const Signup = () => {
         value: "",
         isValid: false,
       },
-      confirmPassword: {
-        value: "",
-        isValid: false,
-      },
     },
     false
   );
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("userId") &&
+      localStorage.getItem("access_token")
+    ) {
+      history.push("/app");
+    }
+  }, [history]);
 
   const handleGoogleLogin = () => {
     const auth = firebase.auth();
@@ -66,13 +61,12 @@ const Signup = () => {
         console.log(error);
       });
   };
-  const handleSubmitRegister = () => {
+  const handleSubmitLogin = () => {
     dispatch(
-      submitRegister(
+      submitLogin(
         {
-          userName: formState.inputs.userName.value,
           email: formState.inputs.email.value,
-          password: formState.inputs.confirmPassword.value,
+          password: formState.inputs.password.value,
         },
         history
       )
@@ -103,7 +97,7 @@ const Signup = () => {
             className="font-bold font-sans mb-4 text-center w-2/4 text-gray-700"
             style={{ fontSize: "28px", lineHeight: "40px" }}
           >
-            Signup to see photos and videos from your friends.
+            Login to see photos and videos from your friends.
           </p>
           <button
             type="button"
@@ -113,23 +107,6 @@ const Signup = () => {
             <Icon type="google" size="20px" marg="0 1rem 0 0" />
             Login With Google
           </button>
-          <div className="w-2/4 mt-4">
-            <Input
-              inputName="UserName"
-              id="userName"
-              type="outlined-basic"
-              label="User Name*"
-              placeholder="MichealBrown"
-              width="large"
-              onInput={inputHandler}
-              validators={[
-                VALIDATOR_REQUIRE(),
-                VALIDATOR_NO_SPACE(),
-                VALIDATOR_MINLENGTH(3),
-              ]}
-              required={true}
-            />
-          </div>
           <div className="w-2/4 mt-4">
             <Input
               width="large"
@@ -154,23 +131,10 @@ const Signup = () => {
               helperText={"Minimum length 6 required!"}
             />
           </div>
-          <div className="w-2/4 mt-4">
-            <Input
-              width="large"
-              id="confirmPassword"
-              isPassword={true}
-              label="Confirm Password*"
-              onInput={inputHandler}
-              validators={[
-                VALIDATOR_CONFIRM_PASSWORD(formState.inputs.password.value),
-              ]}
-              helperText={"Confirm password doesn't match!"}
-            />
-          </div>
           <button
             type="button"
             disabled={!formState.isValid}
-            onClick={handleSubmitRegister}
+            onClick={handleSubmitLogin}
             className={` ${formState.isValid && "bg-gradient-to-r"} ${
               !formState.isValid && "bg-gray-400"
             } flex shadow-2xl justify-center items-center my-4 w-2/4 rounded-full px-4 py-2  font-sans font-medium text-white border-solid ${
@@ -179,21 +143,15 @@ const Signup = () => {
               !formState.isValid ? "from-gray-400" : "to-yellow-500"
             }  `}
           >
-            Sign up
+            Login
           </button>
-          <p className="font-sans mt-2 text-center">
-            By signing up, you agree to our{" "}
-            <span className="font-bold ">Terms</span>,{" "}
-            <span className="font-bold ">Data policy</span> and{" "}
-            <span className="font-bold ">Cookies Policies</span>
-          </p>
           <p className="font-sans mt-4 text-center">
-            Already have an account ?{" "}
+            Don't have an account ?{" "}
             <span
-              className="font-bold text-blue-500 cursor-pointer  "
-              onClick={() => history.push("/")}
+              className="font-bold text-blue-500 cursor-pointer "
+              onClick={() => history.push("/register")}
             >
-              Login
+              Signup
             </span>{" "}
           </p>
         </div>
