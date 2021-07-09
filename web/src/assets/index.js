@@ -1,7 +1,9 @@
 export const icons = {
   dot: require("./icons/dot.png"),
   info: require("./icons/info.png"),
+  logo: require("./icons/logo.png"),
   google: require("./icons/google.png"),
+  instagram: require("./icons/instagram.png"),
   "sad-face": require("./icons/sad-face.png"),
   "post-edit": require("./icons/post-edit.png"),
   "blue-star": require("./icons/blue-star.png"),

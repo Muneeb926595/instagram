@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 `;
 
 function Avatar(props) {
-  const { uri, size, noCircle, small } = props;
+  const { uri, size, profile, noCircle, small } = props;
   const [userImageHasHttp, setUserImageHasHttp] = useState(false);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ function Avatar(props) {
           src={userPlaceholder}
           alt="avatar"
           style={{
-            width: size - 4,
-            height: size - 4,
+            width: profile ? size - 20 : size - 4,
+            height: profile ? size - 20 : size - 4,
             borderRadius: props.hasRadius ? props.hasRadius : "50%",
             textIndent: -9999,
             alignSelf: "center",
@@ -67,8 +67,8 @@ function Avatar(props) {
         src={userImageHasHttp ? uri : baseUrl + uri}
         alt="avatar"
         style={{
-          width: size - 4,
-          height: size - 4,
+          width: profile ? size - 20 : size - 4,
+          height: profile ? size - 20 : size - 4,
           borderRadius: props.hasRadius ? props.hasRadius : "50%",
           textIndent: -9999,
           alignSelf: "center",

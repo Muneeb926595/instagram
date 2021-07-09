@@ -1,12 +1,12 @@
 {
   "baseUrl": "/server/",
-  "name": "whatsapp-api",
+  "name": "instagram-api",
   "port": 3000,
   "jwtPrivateKey": "123",
   "host": "http://localhost",
-  "DataBase_Name": "whatsapp",
+  "DataBase_Name": "instagram",
   "mongoDb": {
-    "uri": "mongodb://localhost/whatsapp",
+    "uri": "mongodb://localhost/instagram",
     "port": "27017",
     "username": "username",
     "password": "password db"
