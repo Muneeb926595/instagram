@@ -34,12 +34,10 @@ const Layout = (props) => {
   }
   return (
     <div className="w-screen h-screen flex items-center">
-      <div className="w-1/4 h-full border-2 border-red-500">
+      <div className="w-1/4 h-full">
         <Navbar />
       </div>
-      <div className="border-2 border-gray-800 w-full h-full mr-2 ml-2">
-        {props.children}
-      </div>
+      <div className=" w-full h-full mr-2 ml-4">{props.children}</div>
     </div>
   );
 };
