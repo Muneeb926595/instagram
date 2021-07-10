@@ -123,7 +123,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex flex-col items-center mt-8">
-        <Avatar profile size="130" />
+        <Avatar
+          uri="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmd8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          profile
+          size="130"
+        />
         <p className="text-gray-700 font-sans font-bold text-lg mt-4">
           Full Name
         </p>

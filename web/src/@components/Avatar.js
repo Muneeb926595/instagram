@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import circle from "assets/icons/avatar-circle.png";
 import userPlaceholder from "assets/icons/user-placeholder.png";
 
 const baseUrl = "";
@@ -17,8 +16,13 @@ const Wrapper = styled.div`
   ${(props) =>
     props.uri &&
     `
-    background-image: ${props.noCircle ? "" : `url(${circle})`}; 
+    background: ${
+      props.noCircle
+        ? ""
+        : `linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%);`
+    }; 
     background-repeat: no-repeat;
+    border-radius:100%;
   `}
 `;
 
@@ -40,8 +44,40 @@ function Avatar(props) {
   if (!uri)
     return (
       <Wrapper size={size} uri={userPlaceholder} noCircle={noCircle}>
+        <div
+          className="bg-gray-100"
+          style={{
+            borderRadius: "100%",
+            padding: "8px",
+          }}
+        >
+          <img
+            src={userPlaceholder}
+            alt="avatar"
+            style={{
+              width: profile ? size - 20 : size - 4,
+              height: profile ? size - 20 : size - 4,
+              borderRadius: props.hasRadius ? props.hasRadius : "50%",
+              textIndent: -9999,
+              alignSelf: "center",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+      </Wrapper>
+    );
+
+  return (
+    <Wrapper size={size} uri={uri || userPlaceholder} noCircle={noCircle}>
+      <div
+        className="bg-gray-100"
+        style={{
+          borderRadius: "100%",
+          padding: "8px",
+        }}
+      >
         <img
-          src={userPlaceholder}
+          src={userImageHasHttp ? uri : baseUrl + uri}
           alt="avatar"
           style={{
             width: profile ? size - 20 : size - 4,
@@ -49,38 +85,10 @@ function Avatar(props) {
             borderRadius: props.hasRadius ? props.hasRadius : "50%",
             textIndent: -9999,
             alignSelf: "center",
-            border: `${
-              props.noBorder
-                ? "none"
-                : small
-                ? `1px solid #ffffff`
-                : `3px solid #ffffff`
-            }`,
+            objectFit: "cover",
           }}
         />
-      </Wrapper>
-    );
-
-  return (
-    <Wrapper size={size} uri={uri || userPlaceholder} noCircle={noCircle}>
-      <img
-        src={userImageHasHttp ? uri : baseUrl + uri}
-        alt="avatar"
-        style={{
-          width: profile ? size - 20 : size - 4,
-          height: profile ? size - 20 : size - 4,
-          borderRadius: props.hasRadius ? props.hasRadius : "50%",
-          textIndent: -9999,
-          alignSelf: "center",
-          border: `${
-            props.noBorder
-              ? "none"
-              : small
-              ? `1px solid #ffffff`
-              : `3px solid #ffffff`
-          }`,
-        }}
-      />
+      </div>
     </Wrapper>
   );
 }
