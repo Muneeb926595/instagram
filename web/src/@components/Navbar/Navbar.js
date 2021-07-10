@@ -114,8 +114,11 @@ const Navbar = () => {
   };
   return (
     <div
-      className="flex flex-col py-8 h-screen bg-gray-100"
-      style={{ boxShadow: "2px 0 20px #dbdbdb" }}
+      className="flex flex-col py-8 h-screen bg-gray-100 w-1/6"
+      style={{
+        boxShadow: "2px 0 20px #dbdbdb",
+        position: "fixed",
+      }}
     >
       <div className="flex items-center justify-center">
         <Icon type="logo" size="30px" marg="0 10px 0 0" />
@@ -135,7 +138,7 @@ const Navbar = () => {
           className=" font-sans  text-sm"
           style={{
             background:
-              "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%);",
+              "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
           }}
         >
           @username

@@ -25,3 +25,29 @@ body {
 code {
   font-family: Caros;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 2px;
+  display: none;
+}
+.no-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 10px 10px 2px #8cb42f;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.app-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.app-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 10px 10px 2px #6bc504;
+}
+
+.app-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

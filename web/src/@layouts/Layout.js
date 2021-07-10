@@ -33,11 +33,14 @@ const Layout = (props) => {
     return <Redirect to="/" />;
   }
   return (
-    <div className="w-screen h-screen flex items-center">
-      <div className="w-1/4 h-full">
+    <div
+      className="w-screen h-screen flex items-center"
+      style={{ maxWidth: "100vw" }}
+    >
+      <div className="w-1/5 h-full">
         <Navbar />
       </div>
-      <div className=" w-full h-full mr-2 ml-4">{props.children}</div>
+      <div className=" w-4/5 h-full mr-2 ml-16">{props.children}</div>
     </div>
   );
 };
