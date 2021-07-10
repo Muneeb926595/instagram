@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 function Avatar(props) {
-  const { uri, size, profile, noCircle, small } = props;
+  const { uri, size, profile, noCircle } = props;
   const [userImageHasHttp, setUserImageHasHttp] = useState(false);
 
   useEffect(() => {

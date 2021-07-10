@@ -83,6 +83,7 @@ const Signup = () => {
         <div className="w-2/4 h-full border-2 rounded-lg">
           <img
             src={loginBg}
+            alt="loginBg"
             style={{
               width: "100%",
               height: "100%",
