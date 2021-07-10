@@ -138,7 +138,7 @@ const Navbar = () => {
           className=" font-sans  text-sm"
           style={{
             background:
-              "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%);",
+              "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
           }}
         >
           @username
