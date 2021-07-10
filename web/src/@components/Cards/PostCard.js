@@ -7,6 +7,7 @@ const PostCard = () => {
     <div className="flex flex-col mb-4" style={{ flexBasis: "31%" }}>
       <img
         className="rounded-lg"
+        alt="postImg"
         src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmd8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
         style={{
           height: "36vh",

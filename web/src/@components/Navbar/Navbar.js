@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Icon, Avatar } from "@components";
-import { useEffect } from "react";
 
 const Navbar = () => {
   const history = useHistory();
