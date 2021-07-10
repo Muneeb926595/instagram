@@ -48,7 +48,7 @@ function Avatar(props) {
           className="bg-gray-100"
           style={{
             borderRadius: "100%",
-            padding: "8px",
+            padding: noCircle ? "0" : "8px",
           }}
         >
           <img
@@ -73,7 +73,7 @@ function Avatar(props) {
         className="bg-gray-100"
         style={{
           borderRadius: "100%",
-          padding: "8px",
+          padding: noCircle ? "0" : "8px",
         }}
       >
         <img

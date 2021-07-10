@@ -114,8 +114,11 @@ const Navbar = () => {
   };
   return (
     <div
-      className="flex flex-col py-8 h-screen bg-gray-100"
-      style={{ boxShadow: "2px 0 20px #dbdbdb" }}
+      className="flex flex-col py-8 h-screen bg-gray-100 w-1/6"
+      style={{
+        boxShadow: "2px 0 20px #dbdbdb",
+        position: "fixed",
+      }}
     >
       <div className="flex items-center justify-center">
         <Icon type="logo" size="30px" marg="0 10px 0 0" />
