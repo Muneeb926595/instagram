@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getUser } from "@store/auth/AuthActions";
 import { socket } from "@helpers/sockets";
+import { Navbar } from "@components";
 
 const Layout = (props) => {
   const dispatch = useDispatch();
@@ -31,7 +32,14 @@ const Layout = (props) => {
   ) {
     return <Redirect to="/" />;
   }
-  return <div>{props.children}</div>;
+  return (
+    <div className="w-screen h-screen flex items-center">
+      <div className="w-1/4 h-full">
+        <Navbar />
+      </div>
+      <div className=" w-full h-full mr-2 ml-4">{props.children}</div>
+    </div>
+  );
 };
 
 export default Layout;

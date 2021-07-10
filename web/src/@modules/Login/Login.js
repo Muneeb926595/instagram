@@ -34,7 +34,7 @@ const Signup = () => {
       localStorage.getItem("userId") &&
       localStorage.getItem("access_token")
     ) {
-      history.push("/app");
+      history.push("/home");
     }
   }, [history]);
 
@@ -50,7 +50,6 @@ const Signup = () => {
           imageUrl: additionalUserInfo.profile.picture,
           userName: additionalUserInfo.profile.name,
         };
-        console.log(data);
         if (data.email) {
           dispatch(socialLogin(data, history));
         } else {
