@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Icon, Avatar } from "@components";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const history = useHistory();
@@ -11,9 +12,9 @@ const Navbar = () => {
     explore: false,
     igtv: false,
     saved: false,
-    stats: false,
     settings: false,
   });
+
   const handleLogout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("access_token");
@@ -28,9 +29,9 @@ const Navbar = () => {
           explore: false,
           igtv: false,
           saved: false,
-          stats: false,
           settings: false,
         });
+        history.push("/home");
         break;
       case "profile":
         setSelectedOption({
@@ -39,9 +40,9 @@ const Navbar = () => {
           explore: false,
           igtv: false,
           saved: false,
-          stats: false,
           settings: false,
         });
+        history.push("/profile");
         break;
       case "explore":
         setSelectedOption({
@@ -50,9 +51,9 @@ const Navbar = () => {
           explore: true,
           igtv: false,
           saved: false,
-          stats: false,
           settings: false,
         });
+        history.push("/explore");
         break;
       case "igtv":
         setSelectedOption({
@@ -61,9 +62,9 @@ const Navbar = () => {
           explore: false,
           igtv: true,
           saved: false,
-          stats: false,
           settings: false,
         });
+        history.push("/igtv");
         break;
       case "saved":
         setSelectedOption({
@@ -72,9 +73,9 @@ const Navbar = () => {
           explore: false,
           igtv: false,
           saved: true,
-          stats: false,
           settings: false,
         });
+        history.push("/saved");
         break;
       case "stats":
         setSelectedOption({
@@ -83,9 +84,9 @@ const Navbar = () => {
           explore: false,
           igtv: false,
           saved: false,
-          stats: true,
           settings: false,
         });
+        history.push("/stats");
         break;
       case "settings":
         setSelectedOption({
@@ -94,9 +95,9 @@ const Navbar = () => {
           explore: false,
           igtv: false,
           saved: false,
-          stats: false,
           settings: true,
         });
+        history.push("/settings");
         break;
       default:
         setSelectedOption({
@@ -105,9 +106,9 @@ const Navbar = () => {
           explore: false,
           igtv: false,
           saved: false,
-          stats: false,
           settings: false,
         });
+        history.push("/home");
         break;
     }
   };
@@ -242,23 +243,6 @@ const Navbar = () => {
             } font-sans`}
           >
             Saved
-          </p>
-        </div>
-
-        <div
-          className="flex items-center  mb-6 cursor-pointer"
-          onClick={() => handleChangeSelectedTab("stats")}
-        >
-          <Icon
-            type={selectedOption.stats ? "stats-active" : "stats"}
-            size="24px"
-          />
-          <p
-            className={`text-l ml-4 font-medium ${
-              selectedOption.stats ? "text-pink-500" : "text-gray-500"
-            } font-sans`}
-          >
-            Stats
           </p>
         </div>
 

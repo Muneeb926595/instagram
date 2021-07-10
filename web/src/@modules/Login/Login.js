@@ -34,7 +34,7 @@ const Signup = () => {
       localStorage.getItem("userId") &&
       localStorage.getItem("access_token")
     ) {
-      history.push("/app");
+      history.push("/home");
     }
   }, [history]);
 

@@ -64,7 +64,7 @@ const loginUserSuccess = (dispatch, data, history) => {
     payload: data,
   });
   toast.success("Welcome Back " + data.userName);
-  history.push("/app");
+  history.push("/home");
 };
 
 export const submitRegister = (user: User, history: any) => {
@@ -122,7 +122,7 @@ const registerUserSuccess = (dispatch, data, history) => {
     payload: data,
   });
   toast.success("Welcome " + data.userName);
-  history.push("/app");
+  history.push("/home");
 };
 
 export const socialLogin = (data, history) => {
@@ -172,7 +172,7 @@ const socialLoginSuccess = (dispatch, data, history) => {
     payload: data,
   });
   toast.success("Welcome " + data.userName);
-  history.push("/app");
+  history.push("/home");
 };
 
 export const getUser = () => {

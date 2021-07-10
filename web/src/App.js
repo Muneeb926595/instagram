@@ -2,7 +2,16 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { Suspense } from "react";
 
 import Layout from "./@layouts/Layout";
-import { Signup, Login, Home } from "@modules";
+import {
+  Signup,
+  Login,
+  Home,
+  Igtv,
+  Profile,
+  Explore,
+  Saved,
+  Settings,
+} from "@modules";
 import "./App.css";
 
 function App() {
@@ -16,7 +25,12 @@ function App() {
             <Route exact path="/register" component={Signup} />
 
             <Layout>
-              <Route exact path="/app" component={Home} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/explore" component={Explore} />
+              <Route exact path="/igtv" component={Igtv} />
+              <Route exact path="/saved" component={Saved} />
+              <Route exact path="/settings" component={Settings} />
             </Layout>
           </Switch>
         </Router>
