@@ -38,5 +38,11 @@ const upload = multer({
   },
 });
 
-router.get("/testing", authController.testing);
+router.post("/auth/login", authController.loginUser);
+router.post("/auth/user", authController.createUser);
+router.post(
+  "/auth/socialLogin",
+  upload.single("imageFile"),
+  authController.socialLogin
+);
 module.exports = router;

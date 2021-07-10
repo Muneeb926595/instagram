@@ -8,3 +8,6 @@ export const loginUserUrl = () => {
   export const getSocialLoginUrl = () => {
     return encodeURI("auth/socialLogin");
   };
+  export const getUserByIdUrl = (userId) => {
+    return encodeURI("auth/user/" + userId);
+  };
