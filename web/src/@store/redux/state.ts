@@ -5,5 +5,8 @@ declare global {
   interface AuthState {
     user: User;
     loading?: boolean;
+  }  
+  interface ModalsState {
+    addPostModal: any;
   }
 }

@@ -1,7 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import { Search, Icon } from "@components";
+import { setShowAddPostModal } from "@store/modals/ModalsActions";
+
 const AppHeader = () => {
+  const dispatch = useDispatch();
+
+  const handleOpenAddPostModal = () => {
+    dispatch(setShowAddPostModal({ isVisible: true, modalPayload: {} }));
+  };
+
   return (
     <div className="flex flex-row items-center bg-white justify-between ">
       <Search />
@@ -9,6 +18,7 @@ const AppHeader = () => {
         <Icon type="messenger" marg="0 0.8rem 0 0" size="24px" />
         <Icon type="notifications" marg="0  1.4rem 0 0.8rem" size="24px" />
         <button
+          onClick={handleOpenAddPostModal}
           className="flex flex-row items-center px-3 py-2 rounded-lg"
           style={{
             background:

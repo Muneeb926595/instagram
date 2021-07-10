@@ -35,7 +35,7 @@ const Layout = (props) => {
   return (
     <div
       className="w-screen h-screen flex items-center"
-      style={{ maxWidth: "100vw" }}
+      style={{ maxWidth: "98vw" }}
     >
       <div className="w-1/5 h-full">
         <Navbar />

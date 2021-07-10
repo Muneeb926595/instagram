@@ -20,3 +20,6 @@ export const AuthActionTypes = {
   UPDATE_USER_IMAGE_SUCCESS: " UPDATE_USER_IMAGE_SUCCESS",
   UPDATE_USER_IMAGE_FAIL: " UPDATE_USER_IMAGE_FAIL",
 };
+export const ModlasActionTypes = {
+  SHOW_ADD_POST_MODAL: "SHOW_ADD_POST_MODAL",
+};
