@@ -1,4 +1,5 @@
 import { User } from "@models/User";
+import { Post } from "@models/Post";
 
 export {};
 declare global {
@@ -8,5 +9,9 @@ declare global {
   }  
   interface ModalsState {
     addPostModal: any;
+  } 
+   interface PostState {
+    posts: Post[];
+    loading?: boolean;
   }
 }

@@ -21,6 +21,7 @@ export const icons = {
   "igtv-active": require("./icons/igtv-active.png"),
   "add-images": require("./icons/add-images.png"),
   "add-videos": require("./icons/add-videos.png"),
+  "red-cancel": require("./icons/red-cancel.png"),
   "home-active": require("./icons/home-active.png"),
   "saved-active": require("./icons/saved-active.png"),
   "saved-filled": require("./icons/saved-filled.png"),

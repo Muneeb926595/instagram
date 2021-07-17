@@ -23,3 +23,10 @@ export const AuthActionTypes = {
 export const ModlasActionTypes = {
   SHOW_ADD_POST_MODAL: "SHOW_ADD_POST_MODAL",
 };
+export const PostActionTypes = {
+
+  CREATE_POSTS_START: " CREATE_POSTS_START",
+  CREATE_POSTS_SUCCESS: " CREATE_POSTS_SUCCESS",
+  CREATE_POSTS_FAIL: " CREATE_POSTS_FAIL",
+
+};
