@@ -51,6 +51,16 @@ code {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+.gradient-text {
+  background: linear-gradient(
+    140deg,
+    rgba(228, 62, 104, 1) 0%,
+    rgba(250, 164, 73, 1) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 ::-webkit-scrollbar {
   width: 8px;
