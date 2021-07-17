@@ -8,4 +8,6 @@ export { default as Navbar } from "./Navbar/Navbar";
 export { default as Stories } from "./Stories/Stories";
 export { default as AddPostModal } from "./AddPostModal";
 export { default as CustomModal } from "./CustomModal";
+export { default as PostImage } from "./PostImage";
+export { default as Dots } from "./Dots";
 export { PostCard, StoryCard } from "./Cards";
