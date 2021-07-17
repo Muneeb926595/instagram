@@ -93,6 +93,6 @@ const createPostSuccess = (dispatch, data, history) => {
     payload: data,
   });
   dispatch(setShowAddPostModal({ isVisible: false, modalPayload: {} }));
-
+  dispatch(getPosts());
   toast.success("Post Uploaded Successfully!");
 };
