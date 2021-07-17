@@ -11,6 +11,7 @@ import {
   Explore,
   Saved,
   Settings,
+  Modals,
 } from "@modules";
 import "./App.css";
 
@@ -31,6 +32,7 @@ function App() {
               <Route exact path="/igtv" component={Igtv} />
               <Route exact path="/saved" component={Saved} />
               <Route exact path="/settings" component={Settings} />
+              <Modals />
             </Layout>
           </Switch>
         </Router>

@@ -4,7 +4,7 @@ import { PostCard, AppHeader, Stories } from "@components";
 
 const Home = () => {
   return (
-    <div className="flex flex-col py-6 pr-16">
+    <div className="flex flex-col py-6 pr-10">
       <AppHeader />
       <Stories />
 

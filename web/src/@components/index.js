@@ -6,4 +6,6 @@ export { default as Search } from "./Search";
 export { default as AppHeader } from "./AppHeader";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Stories } from "./Stories/Stories";
+export { default as AddPostModal } from "./AddPostModal";
+export { default as CustomModal } from "./CustomModal";
 export { PostCard, StoryCard } from "./Cards";
