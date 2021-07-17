@@ -4,5 +4,5 @@ in feature/FEAT1   --->> Complet Authentication with JWT Node and Firebase Googl
 
 in feature/FEAT2   --->> complete optimized way Layout with the custome navigations sidepanel
 
-in feature/FEAT3 ---> Home Page Complete With Stories header and posts
+in feature/FEAT3 ---> Home Page Complete With Stories header and posts along with comments , likes and follow/unfollow users
 
