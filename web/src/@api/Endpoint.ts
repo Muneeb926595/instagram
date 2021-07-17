@@ -26,3 +26,6 @@ export const getStoriesUrl = (userId) => {
 export const getPostUrl = () => {
   return encodeURI("post");
 };
+export const getLikeUrl = () => {
+  return encodeURI("likes");
+};
