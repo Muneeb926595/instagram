@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Icon, Avatar } from "@components";
@@ -13,6 +14,8 @@ const Navbar = () => {
     saved: false,
     settings: false,
   });
+
+  const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -125,22 +128,12 @@ const Navbar = () => {
       </div>
 
       <div className="flex flex-col items-center mt-8">
-        <Avatar
-          uri="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmd8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-          profile
-          size="130"
-        />
+        <Avatar uri={userData?.image} profile size="130" />
         <p className="text-gray-700 font-sans font-bold text-lg mt-4">
-          Full Name
+          {userData?.userName}
         </p>
-        <p
-          className=" font-sans  text-sm"
-          style={{
-            background:
-              "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
-          }}
-        >
-          @username
+        <p className=" font-sans text-sm gradient-text">
+          @{userData?.userName}
         </p>
       </div>
 
@@ -178,7 +171,7 @@ const Navbar = () => {
           />
           <p
             className={`text-l ml-4 font-medium ${
-              selectedOption.home ? "text-pink-500" : "text-gray-500"
+              selectedOption.home ? "gradient-text" : "text-gray-500"
             } font-sans`}
           >
             Feed
@@ -194,7 +187,7 @@ const Navbar = () => {
           />
           <p
             className={`text-l ml-4 font-medium ${
-              selectedOption.profile ? "text-pink-500" : "text-gray-500"
+              selectedOption.profile ? "gradient-text" : "text-gray-500"
             } font-sans`}
           >
             Profile
@@ -211,7 +204,7 @@ const Navbar = () => {
           />
           <p
             className={`text-l ml-4 font-medium ${
-              selectedOption.explore ? "text-pink-500" : "text-gray-500"
+              selectedOption.explore ? "gradient-text" : "text-gray-500"
             } font-sans`}
           >
             Explore
@@ -228,7 +221,7 @@ const Navbar = () => {
           />
           <p
             className={`text-l ml-4 font-medium ${
-              selectedOption.igtv ? "text-pink-500" : "text-gray-500"
+              selectedOption.igtv ? "gradient-text" : "text-gray-500"
             } font-sans`}
           >
             Igtv
@@ -245,7 +238,7 @@ const Navbar = () => {
           />
           <p
             className={`text-l ml-4 font-medium ${
-              selectedOption.saved ? "text-pink-500" : "text-gray-500"
+              selectedOption.saved ? "gradient-text" : "text-gray-500"
             } font-sans`}
           >
             Saved
@@ -262,7 +255,7 @@ const Navbar = () => {
           />
           <p
             className={`text-l ml-4 font-medium ${
-              selectedOption.settings ? "text-pink-500" : "text-gray-500"
+              selectedOption.settings ? "gradient-text" : "text-gray-500"
             } font-sans`}
           >
             Settings
