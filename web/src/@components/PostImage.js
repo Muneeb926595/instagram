@@ -113,7 +113,7 @@ function PostImage(props) {
     },
     dotsContainer: {
       position: "absolute",
-      bottom: "-5vh",
+      bottom: "0%",
       width: "100%",
       zIndex: "1",
     },
@@ -139,6 +139,7 @@ function PostImage(props) {
               </div>
             )}
             <Carousel
+              // infiniteLoop={true}
               showArrows={true}
               showThumbs={false}
               autoPlay={true}

@@ -30,7 +30,6 @@ const validateComment = (comment) => {
     userId: Joi.objectId().required(),
     postId: Joi.objectId().required(),
     content: Joi.string().min(2).max(255).required(),
-    postType: Joi.string(),
     taggedUsers: Joi.array(),
   };
   return Joi.validate(comment, schema);

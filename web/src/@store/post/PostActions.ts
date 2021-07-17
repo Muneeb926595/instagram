@@ -52,7 +52,7 @@ export const createPost = (post: Post) => {
       type: PostActionTypes.CREATE_POSTS_START,
     });
     const url = getAddPostUrl();
-    console.log("goint to ", url, "with", post);
+
     let formData = new FormData();
     for (let key in post) {
       if (key === "imageFile" && post[key] != null) {
@@ -95,4 +95,29 @@ const createPostSuccess = (dispatch, data, history) => {
   dispatch(setShowAddPostModal({ isVisible: false, modalPayload: {} }));
   dispatch(getPosts());
   toast.success("Post Uploaded Successfully!");
+};
+
+export const addPostLikeLocally = (
+  postId,
+  userId,
+
+  like,
+  image,
+  userName
+) => {
+  return (dispatch) => [
+    dispatch({
+      type: PostActionTypes.ADD_POST_LIKE_LOCALLY,
+      payload: { postId, userId, like, image, userName },
+    }),
+  ];
+};
+
+export const removePostLikeLocally = (postId, userId, like) => {
+  return (dispatch) => [
+    dispatch({
+      type: PostActionTypes.REMOVE_POST_LIKE_LOCALLY,
+      payload: { postId, userId, like },
+    }),
+  ];
 };
