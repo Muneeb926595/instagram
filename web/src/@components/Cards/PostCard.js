@@ -1,20 +1,20 @@
 import React from "react";
 
-import { Avatar, Icon } from "@components";
-import { formateImageUrl } from "@helpers/formateImageUrl";
+import { Avatar, Icon, PostImage } from "@components";
 
 const PostCard = ({ postData }) => {
   return (
     <div className="flex flex-col mb-4" style={{ flexBasis: "31%" }}>
-      <img
+      <div
         className="rounded-lg"
-        alt="postImg"
-        src={formateImageUrl(postData?.mediaFiles?.[0])}
         style={{
           height: "36vh",
           objectFit: "cover",
         }}
-      />
+      >
+        <PostImage hasRadius="0.5rem" mediaFiles={postData?.mediaFiles} />
+      </div>
+
       <div className="flex flex-row items-center justify-between py-1 px-2">
         <div className="flex flex-row items-center">
           <Avatar uri={postData?.users?.[0]?.image} size="36" noCircle />

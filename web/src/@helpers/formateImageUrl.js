@@ -1,6 +1,8 @@
 export const formateImageUrl = (url) => {
-  return process.env.REACT_APP_API_BASE_URL + url;
+  const baseUrl = "http://localhost:3000/api/";
+  return baseUrl + url;
 };
 export const formateVideoUrl = (url) => {
-  return process.env.REACT_APP_API_BASE_URL + url;
+  const baseUrl = "http://localhost:3000/api/";
+  return baseUrl + url;
 };
