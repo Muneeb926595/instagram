@@ -23,3 +23,6 @@ export const getViewedStoriesUrl = (userId, storyId) => {
 export const getStoriesUrl = (userId) => {
   return encodeURI("story?userId=" + userId);
 };
+export const getPostUrl = () => {
+  return encodeURI("post");
+};

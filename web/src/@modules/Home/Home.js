@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { PostCard, AppHeader, Stories } from "@components";
+import { getPosts } from "@store/post/PostActions";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPosts());
+  }, []);
+
   return (
     <div className="flex flex-col py-6 pr-10">
       <AppHeader />
