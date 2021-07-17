@@ -1,4 +1,3 @@
-import ReactGA from "react-ga";
 import _clone from "lodash/clone";
 import _escapeRegExp from "lodash/escapeRegExp";
 import _uniqBy from "lodash/uniqBy";
@@ -18,12 +17,6 @@ export const isVideo = (type) => {
 export const isImage = (type) => {
   const mimeTypes = ["image/gif", "image/jpeg", "image/png"];
   return mimeTypes.includes(type);
-};
-
-export const pageAnalytics = (window) => {
-  if (process.env.REACT_APP_IS_PRODUCTION === "true") {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }
 };
 
 export function swapTags(text) {

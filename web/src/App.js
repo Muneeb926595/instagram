@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { Suspense } from "react";
 
 import Layout from "./@layouts/Layout";
@@ -18,6 +20,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <div className="background"></div>
       <Suspense fallback={<div>Loading..</div>}>
         <Router>

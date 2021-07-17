@@ -14,3 +14,12 @@ export const getUserByIdUrl = (userId) => {
 export const getAddPostUrl = () => {
   return encodeURI("post");
 };
+export const getAddStoryUrl = () => {
+  return encodeURI("story");
+};
+export const getViewedStoriesUrl = (userId, storyId) => {
+  return encodeURI("viewed-story?userId=" + userId + "&storyId=" + storyId);
+};
+export const getStoriesUrl = (userId) => {
+  return encodeURI("story?userId=" + userId);
+};
