@@ -8,8 +8,20 @@ export const registerUserUrl = () => {
 export const getSocialLoginUrl = () => {
   return encodeURI("auth/socialLogin");
 };
-export const getUserByIdUrl = (userId) => {
-  return encodeURI("auth/user/" + userId);
+export const getUserByIdUrl = (id, userId) => {
+  return encodeURI("auth/user/" + id + "/" + userId);
+};
+export const getUserPostUrl = (id, page, limit, userId) => {
+  return encodeURI(
+    "post/userPosts/" +
+      id +
+      "?page=" +
+      page +
+      "&limit=" +
+      limit +
+      "&userId=" +
+      userId
+  );
 };
 export const getAddPostUrl = () => {
   return encodeURI("post");

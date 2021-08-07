@@ -114,131 +114,103 @@ exports.socialLogin = async (req, res, next) => {
 };
 
 exports.getUserById = async (req, res, next) => {
-  const { userId } = req.params;
+  const { id, userId } = req.params;
 
-  const user = await User.findById(userId);
-  return res.status(200).send(user);
-  // const user = await User.aggregate([
-  //   { $match: { _id: mongoose.Types.ObjectId(id) } },
-  //   { $project: { password: 0, __v: 0 } },
-  //   {
-  //     $lookup: {
-  //       from: "followers",
-  //       as: "followers",
-  //       let: { userId: "$_id" },
-  //       pipeline: [
-  //         {
-  //           $match: {
-  //             $expr: { $eq: ["$follower", "$$userId"] },
-  //           },
-  //         },
-  //         {
-  //           $lookup: {
-  //             from: "users",
-  //             as: "UserData",
-  //             let: { userId: "$userId" },
-  //             pipeline: [
-  //               {
-  //                 $match: {
-  //                   $expr: { $eq: ["$_id", "$$userId"] },
-  //                 },
-  //               },
-  //               {
-  //                 $project: {
-  //                   fullName: 1,
-  //                   userName: 1,
-  //                   email: 1,
-  //                   image: 1,
-  //                 },
-  //               },
-  //             ],
-  //           },
-  //         },
-  //         { $sort: { createdAt: -1 } },
-  //         { $unwind: "$UserData" },
-  //       ],
-  //     },
-  //   },
-  //   {
-  //     $lookup: {
-  //       from: "followers",
-  //       as: "followings",
-  //       let: { userId: "$_id" },
-  //       pipeline: [
-  //         {
-  //           $match: {
-  //             $expr: { $eq: ["$following", "$$userId"] },
-  //           },
-  //         },
-  //         {
-  //           $lookup: {
-  //             from: "users",
-  //             as: "UserData",
-  //             let: { userId: "$userId" },
-  //             pipeline: [
-  //               {
-  //                 $match: {
-  //                   $expr: { $eq: ["$_id", "$$userId"] },
-  //                 },
-  //               },
-  //               { $project: { fullName: 1, userName: 1, email: 1, image: 1 } },
-  //             ],
-  //           },
-  //         },
-  //         { $sort: { createdAt: -1 } },
+  const user = await User.aggregate([
+    { $match: { _id: mongoose.Types.ObjectId(id) } },
+    { $project: { password: 0, __v: 0 } },
+    {
+      $lookup: {
+        from: "followers",
+        as: "followers",
+        let: { userId: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$follower", "$$userId"] },
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              as: "UserData",
+              let: { userId: "$userId" },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: { $eq: ["$_id", "$$userId"] },
+                  },
+                },
+                {
+                  $project: {
+                    fullName: 1,
+                    userName: 1,
+                    email: 1,
+                    image: 1,
+                  },
+                },
+              ],
+            },
+          },
+          { $sort: { createdAt: -1 } },
+          { $unwind: "$UserData" },
+        ],
+      },
+    },
+    {
+      $lookup: {
+        from: "followers",
+        as: "followings",
+        let: { userId: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$following", "$$userId"] },
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              as: "UserData",
+              let: { userId: "$userId" },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: { $eq: ["$_id", "$$userId"] },
+                  },
+                },
+                { $project: { fullName: 1, userName: 1, email: 1, image: 1 } },
+              ],
+            },
+          },
+          { $sort: { createdAt: -1 } },
 
-  //         { $unwind: "$UserData" },
-  //       ],
-  //     },
-  //   },
-  //   {
-  //     $lookup: {
-  //       from: "blockusers",
-  //       localField: "_id",
-  //       foreignField: "blockedUserId",
-  //       as: "blockUsers",
-  //     },
-  //   },
-  // ]);
+          { $unwind: "$UserData" },
+        ],
+      },
+    },
+  ]);
 
-  // const userProfileData = {
-  //   _id: user[0]._id,
-  //   fullName: user[0].fullName,
-  //   userName: user[0].userName,
-  //   phoneNo: user[0].phoneNo,
-  //   gender: user[0].gender,
-  //   address: user[0].address,
-  //   description: user[0].description,
-  //   profileGrid: user[0].profileGrid,
-  //   email: user[0].email,
-  //   createdAt: user[0].createdAt,
-  //   updatedAt: user[0].updatedAt,
-  //   token: user[0].token,
-  //   deactivationDate: user[0].deactivationDate,
-  //   deleteMyAccount: user[0].deleteMyAccount,
-  //   notification: user[0].notification,
-  //   image: user[0].image ? user[0].image : "",
-  // };
+  const userProfileData = {
+    _id: user[0]._id,
+    userName: user[0].userName,
+    email: user[0].email,
+    createdAt: user[0].createdAt,
+    updatedAt: user[0].updatedAt,
+    image: user[0].image ? user[0].image : "",
+  };
 
-  // let alreadyFollowing = false;
-  // user[0].followers.map((user) => {
-  //   if (user.userId == userId && user.follower == id) {
-  //     alreadyFollowing = true;
-  //   }
-  // });
+  let alreadyFollowing = false;
+  user[0].followers.map((user) => {
+    if (user.userId == userId && user.follower == id) {
+      alreadyFollowing = true;
+    }
+  });
 
-  // let alreadyBlocked = false;
-  // user[0].blockUsers.map((user) => {
-  //   if (user.userId == userId && user.blockedUserId == id) {
-  //     alreadyBlocked = true;
-  //   }
-  // });
-
-  // return res.status(200).send({
-  //   user: userProfileData,
-  //   followingList: user[0].followings,
-  //   followersList: user[0].followers,
-  //   alreadyFollowing: alreadyFollowing,
-  //   alreadyBlocked: alreadyBlocked,
-  // });
+  return res.status(200).send({
+    user: userProfileData,
+    followingList: user[0].followings,
+    followersList: user[0].followers,
+    alreadyFollowing: alreadyFollowing,
+  });
 };

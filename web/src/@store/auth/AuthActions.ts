@@ -2,7 +2,8 @@ import { toast } from "react-toastify";
 import {
   loginUserUrl,
   registerUserUrl,
-  getSocialLoginUrl,getUserByIdUrl,
+  getSocialLoginUrl,
+  getUserByIdUrl,
 } from "@api/Endpoint";
 import { axiosInstance as axios } from "@api/axios";
 import { AuthActionTypes } from "../redux/actionTypes";
@@ -175,13 +176,13 @@ const socialLoginSuccess = (dispatch, data, history) => {
   history.push("/home");
 };
 
-export const getUser = () => {
+export const getUser = (id) => {
   return (dispatch) => {
     dispatch({
       type: AuthActionTypes.GET_USER_START,
     });
 
-    const url = getUserByIdUrl(localStorage.getItem("userId"));
+    const url = getUserByIdUrl(id, localStorage.getItem("userId"));
 
     axios
       .get(url)

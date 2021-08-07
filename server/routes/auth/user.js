@@ -39,7 +39,7 @@ const upload = multer({
 });
 
 router.post("/auth/login", authController.loginUser);
-router.get("/auth/user/:userId", auth, authController.getUserById);
+router.get("/auth/user/:id/:userId", auth, authController.getUserById);
 router.post("/auth/user", authController.createUser);
 router.post(
   "/auth/socialLogin",

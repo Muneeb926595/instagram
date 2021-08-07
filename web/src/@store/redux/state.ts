@@ -7,6 +7,9 @@ export {};
 declare global {
   interface AuthState {
     user: User;
+    followingList?: any;
+    followersList?: any;
+    alreadyFollowing?: String;
     loading?: boolean;
   }
   interface ModalsState {
@@ -24,5 +27,15 @@ declare global {
   interface LikeState {
     like: Like;
     loading?: boolean;
+  }
+  interface UserProfileState {
+    userProfile: User;
+    profilePosts: Post[];
+    loading?: boolean;
+    otherUserFoodAndI: boolean;
+    postsLoading?: boolean;
+    followingList?: String;
+    followersList?: String;
+    alreadyFollowing?: String;
   }
 }

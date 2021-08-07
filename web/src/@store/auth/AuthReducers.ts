@@ -1,6 +1,9 @@
 import { AuthActionTypes } from "./../redux/actionTypes";
 const INITIAL_STATE: AuthState = {
   user: {},
+  followingList: [],
+  followersList: [],
+  alreadyFollowing: "false",
   loading: false,
 };
 interface Action {
@@ -69,7 +72,10 @@ const AuthReducer = (
     case AuthActionTypes.GET_USER_SUCCESS: {
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        followingList: action.payload.followingList,
+        followersList: action.payload.followersList,
+        alreadyFollowing: action.payload.alreadyFollowing,
         loading: false,
       };
     }
