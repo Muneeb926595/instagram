@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import { Avatar, Icon, PostImage } from "@components";
+import { Avatar, Icon, PostImage, Clickable } from "@components";
 import { likePost } from "@store/like/LikeActions";
 import {
   addPostLikeLocally,
@@ -9,6 +10,7 @@ import {
 } from "@store/post/PostActions";
 
 const PostCard = ({ postData }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [like, setLike] = useState(false);
   const [likeCounts, setLikeCounts] = useState(0);
@@ -51,9 +53,18 @@ const PostCard = ({ postData }) => {
       <div className="flex flex-row items-center justify-between py-1 px-2">
         <div className="flex flex-row items-center">
           <Avatar uri={postData?.users?.[0]?.image} size="36" noCircle />
-          <p className="ml-3 font-semibold font-sans text-sm">
-            {postData?.users?.[0]?.userName}
-          </p>
+          <Clickable
+            onClick={() =>
+              history.push({
+                pathname: "/profile",
+                state: { userId: postData?.userId?._id },
+              })
+            }
+          >
+            <p className="ml-3 font-semibold font-sans text-sm">
+              {postData?.users?.[0]?.userName}
+            </p>
+          </Clickable>
         </div>
 
         <div className="flex flex-row items-center">

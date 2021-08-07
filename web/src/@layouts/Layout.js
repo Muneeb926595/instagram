@@ -13,7 +13,7 @@ const Layout = (props) => {
   //get user data if not available in redux
   useEffect(() => {
     if (!userData.userName) {
-      dispatch(getUser());
+      dispatch(getUser(localStorage.getItem("userId")));
     }
   }, [dispatch, userData]);
 
