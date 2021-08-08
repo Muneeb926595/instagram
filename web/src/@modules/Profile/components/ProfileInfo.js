@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import userPlaceholder from "assets/icons/user-placeholder.png";
+import { followUnFollow } from "@store/followers/FollowersActions";
 
 const baseUrl = "";
 
@@ -20,8 +22,21 @@ const ProfileInfo = ({
   followersList,
   alreadyFollowing,
 }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [userImageHasHttp, setUserImageHasHttp] = useState(false);
+  const [following, setFollowing] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+
+  useEffect(() => {
+    setFollowersCount(followersList.length);
+    setFollowingCount(followingList.length);
+  }, [followingList, followersList]);
+
+  useEffect(() => {
+    setFollowing(alreadyFollowing);
+  }, [alreadyFollowing]);
 
   useEffect(() => {
     if (userData?.image !== "undefined") {
@@ -33,6 +48,14 @@ const ProfileInfo = ({
       }
     }
   }, [userData]);
+
+  const calculateFollowers = () => {
+    if (following) {
+      setFollowersCount(followersCount - 1);
+    } else {
+      setFollowersCount(followersCount + 1);
+    }
+  };
 
   return (
     <div
@@ -86,14 +109,14 @@ const ProfileInfo = ({
         <div style={{ height: "4vh", border: "1px solid #dbdbdb" }}></div>
         <div className="flex flex-col justify-center items-center">
           <p className="text-gray-700 font-sans font-bold text-base ">
-            {followersList?.length}
+            {followersCount}
           </p>
           <p className="text-gray-500 font-sans text-sm">Followers</p>
         </div>
         <div style={{ height: "4vh", border: "1px solid #dbdbdb" }}></div>
         <div className="flex flex-col justify-center items-center">
           <p className="text-gray-700 font-sans font-bold text-base ">
-            {followingList?.length}
+            {followingCount}
           </p>
           <p className="text-gray-500 font-sans text-sm">Followings</p>
         </div>
@@ -103,33 +126,44 @@ const ProfileInfo = ({
         className="flex flex-col w-3/4 "
         style={{ margin: "0 auto", marginTop: "3.2rem" }}
       >
-        <div className="flex justify-between px-4">
-          <button
-            className="flex flex-row items-center justify-center  py-2  rounded-lg"
-            style={{
-              border: alreadyFollowing ? "1px solid rgba(228, 62, 104, 1)" : "",
-              background: alreadyFollowing
-                ? "transparent"
-                : "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
-              width: "7rem",
-            }}
-          >
-            <p className="text-white text-sm font-sans font-semibold ">
-              {alreadyFollowing ? "UnFollow" : "Follow"}
-            </p>
-          </button>
-          <button
-            className="flex flex-row items-center justify-center  py-2  rounded-lg"
-            style={{
-              background: "#ededed",
-              width: "7rem",
-            }}
-          >
-            <p className="text-gray-500 text-sm font-sans font-semibold ">
-              Message
-            </p>
-          </button>
-        </div>
+        {localStorage?.getItem("userId") !== userData?._id && (
+          <div className="flex justify-between px-4">
+            <button
+              onClick={() => {
+                setFollowing(!following);
+                calculateFollowers();
+                dispatch(followUnFollow(userData?._id));
+              }}
+              className="flex flex-row items-center justify-center  py-2  rounded-lg"
+              style={{
+                border: following ? "1px solid rgba(228, 62, 104, 1)" : "",
+                background: following
+                  ? "transparent"
+                  : "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
+                width: "7rem",
+              }}
+            >
+              <p
+                className={`text-white text-sm font-sans font-semibold ${
+                  following && "gradient-text"
+                } `}
+              >
+                {following ? "UnFollow" : "Follow"}
+              </p>
+            </button>
+            <button
+              className="flex flex-row items-center justify-center  py-2  rounded-lg"
+              style={{
+                background: "#ededed",
+                width: "7rem",
+              }}
+            >
+              <p className="text-gray-500 text-sm font-sans font-semibold ">
+                Message
+              </p>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -88,6 +88,13 @@ const AuthReducer = (
         loading: false,
       };
     }
+    case AuthActionTypes.UPDATE_USER_POST_COUNT: {
+      return {
+        ...state,
+        postsCount: state?.postsCount + 1,
+        loading: false,
+      };
+    }
     default: {
       return state;
     }

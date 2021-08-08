@@ -16,6 +16,11 @@ declare global {
   interface ModalsState {
     addPostModal: any;
   }
+  interface FollowUnFollowState {
+    followingList?: any;
+    message: String;
+    loading?: boolean;
+  }
   interface PostState {
     posts: Post[];
     loading?: boolean;

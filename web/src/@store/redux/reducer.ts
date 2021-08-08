@@ -6,10 +6,12 @@ import like from "../like/LikeReducer";
 import stories from "../stories/StoriesReducers";
 import userProfile from "../userProfile/UserProfileReducers";
 import post from "../post/PostReducers";
+import follow from "../followers/FollowersReducers";
 
 const Foodbook = combineReducers({
   auth,
   modals,
+  follow,
   post,
   like,
   stories,

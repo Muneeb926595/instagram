@@ -5,6 +5,7 @@ import { axiosInstance as axios } from "@api/axios";
 import { PostActionTypes } from "../redux/actionTypes";
 import { Post } from "@models/Post";
 import { setShowAddPostModal } from "../modals/ModalsActions";
+import { upateUserPostCount } from "../auth/AuthActions";
 
 export const getPosts = () => {
   return (dispatch) => {
@@ -94,6 +95,7 @@ const createPostSuccess = (dispatch, data, history) => {
   });
   dispatch(setShowAddPostModal({ isVisible: false, modalPayload: {} }));
   dispatch(getPosts());
+  dispatch(upateUserPostCount());
   toast.success("Post Uploaded Successfully!");
 };
 
