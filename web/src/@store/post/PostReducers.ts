@@ -14,7 +14,7 @@ const PostReducer = (
 ): PostState => {
   switch (action.type) {
     case PostActionTypes.GET_POSTS_START: {
-      return { ...state, loading: false };
+      return { ...state, loading: true };
     }
     case PostActionTypes.GET_POSTS_SUCCESS: {
       return {
