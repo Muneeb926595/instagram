@@ -24,6 +24,11 @@ export const AuthActionTypes = {
 export const ModlasActionTypes = {
   SHOW_ADD_POST_MODAL: "SHOW_ADD_POST_MODAL",
 };
+export const SearchActionTypes = {
+  SEARCH_START: " SEARCH_START",
+  SEARCH_SUCCESS: " SEARCH_SUCCESS",
+  SEARCH_FAIL: " SEARCH_FAIL",
+};
 export const PostActionTypes = {
   GET_POSTS_START: " GET_POSTS_START",
   GET_POSTS_SUCCESS: " GET_POSTS_SUCCESS",

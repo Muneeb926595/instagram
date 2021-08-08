@@ -50,3 +50,7 @@ export const getUserFollowingsUrl = (id) => {
 export const getRemoveFollowerFollowingUrl = () => {
   return encodeURI("removeFollowerFollowing");
 };
+
+export const getSearchUrl = (searchText) => {
+  return encodeURI("search?searchText=" + searchText);
+};

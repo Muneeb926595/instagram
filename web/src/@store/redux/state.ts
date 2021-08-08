@@ -21,6 +21,10 @@ declare global {
     message: String;
     loading?: boolean;
   }
+  interface SearchState {
+    users: any[];
+    loading?: boolean;
+  }
   interface PostState {
     posts: Post[];
     loading?: boolean;
