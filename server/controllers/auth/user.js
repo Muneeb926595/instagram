@@ -189,6 +189,21 @@ exports.getUserById = async (req, res, next) => {
         ],
       },
     },
+    {
+      $lookup: {
+        from: "posts",
+        as: "posts",
+        localField: "_id",
+        foreignField: "userId",
+      },
+    },
+    {
+      $addFields: {
+        posts: {
+          $size: "$posts",
+        },
+      },
+    },
   ]);
 
   const userProfileData = {
@@ -211,6 +226,7 @@ exports.getUserById = async (req, res, next) => {
     user: userProfileData,
     followingList: user[0].followings,
     followersList: user[0].followers,
+    postsCount: user[0].posts,
     alreadyFollowing: alreadyFollowing,
   });
 };

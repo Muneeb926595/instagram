@@ -40,7 +40,7 @@ const Layout = (props) => {
       <div className="w-1/5 h-full">
         <Navbar />
       </div>
-      <div className=" w-4/5 h-full mr-2 ml-16">{props.children}</div>
+      <div className=" w-4/5 h-full mr-2 ">{props.children}</div>
     </div>
   );
 };

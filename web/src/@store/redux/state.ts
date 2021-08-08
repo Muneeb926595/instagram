@@ -7,6 +7,7 @@ export {};
 declare global {
   interface AuthState {
     user: User;
+    postsCount?: any;
     followingList?: any;
     followersList?: any;
     alreadyFollowing?: String;
@@ -33,6 +34,7 @@ declare global {
     profilePosts: Post[];
     loading?: boolean;
     otherUserFoodAndI: boolean;
+    postsCount?: any;
     postsLoading?: boolean;
     followingList?: String;
     followersList?: String;

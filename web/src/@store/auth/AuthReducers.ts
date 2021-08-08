@@ -1,6 +1,7 @@
 import { AuthActionTypes } from "./../redux/actionTypes";
 const INITIAL_STATE: AuthState = {
   user: {},
+  postsCount: 0,
   followingList: [],
   followersList: [],
   alreadyFollowing: "false",
@@ -73,6 +74,7 @@ const AuthReducer = (
       return {
         ...state,
         user: action.payload.user,
+        postsCount: action.payload.postsCount,
         followingList: action.payload.followingList,
         followersList: action.payload.followersList,
         alreadyFollowing: action.payload.alreadyFollowing,
