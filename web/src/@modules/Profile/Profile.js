@@ -30,27 +30,31 @@ const Profile = (props) => {
       dispatch(getUserPosts(localStorage.getItem("userId"), 1, 25));
     }
   }, [otherUser, userId, dispatch]);
-  console.log("otherUser", otherUser);
+
   return (
-    <div>
-      <ProfileInfo
-        userData={otherUser ? otherUserData?.userProfile : userData?.user}
-        postsCount={
-          otherUser ? otherUserData?.postsCount : userData?.postsCount
-        }
-        followingList={
-          otherUser ? otherUserData?.followingList : userData?.followingList
-        }
-        followersList={
-          otherUser ? otherUserData?.followersList : userData?.followersList
-        }
-        alreadyFollowing={
-          otherUser
-            ? otherUserData?.alreadyFollowing
-            : userData?.alreadyFollowing
-        }
-      />
-      <ProfilePosts />
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: "flex", flex: "0.24" }}>
+        <ProfileInfo
+          userData={otherUser ? otherUserData?.userProfile : userData?.user}
+          postsCount={
+            otherUser ? otherUserData?.postsCount : userData?.postsCount
+          }
+          followingList={
+            otherUser ? otherUserData?.followingList : userData?.followingList
+          }
+          followersList={
+            otherUser ? otherUserData?.followersList : userData?.followersList
+          }
+          alreadyFollowing={
+            otherUser
+              ? otherUserData?.alreadyFollowing
+              : userData?.alreadyFollowing
+          }
+        />
+      </div>
+      <div style={{ display: "flex", flex: "0.8" }}>
+        <ProfilePosts otherUser={otherUser} />
+      </div>
     </div>
   );
 };

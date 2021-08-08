@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { Icon } from "@components";
 import userPlaceholder from "assets/icons/user-placeholder.png";
 import { followUnFollow } from "@store/followers/FollowersActions";
 
@@ -61,10 +62,7 @@ const ProfileInfo = ({
     <div
       className="flex flex-col py-12 h-screen "
       style={{
-        position: "fixed",
-        maxWidth: "20vw",
-        width: "20vw",
-        minWidth: "20vw",
+        width: "100%",
         borderRight: "1px solid #ebebeb",
       }}
     >
@@ -127,7 +125,7 @@ const ProfileInfo = ({
         style={{ margin: "0 auto", marginTop: "3.2rem" }}
       >
         {localStorage?.getItem("userId") !== userData?._id && (
-          <div className="flex justify-between px-4">
+          <div className="flex justify-between px-2">
             <button
               onClick={() => {
                 setFollowing(!following);
@@ -158,9 +156,7 @@ const ProfileInfo = ({
                 width: "7rem",
               }}
             >
-              <p className="text-gray-500 text-sm font-sans font-semibold ">
-                Message
-              </p>
+              <Icon type="messenger" marg="0 0.8rem 0 0" size="22px" />
             </button>
           </div>
         )}

@@ -9,7 +9,7 @@ import {
   removePostLikeLocally,
 } from "@store/post/PostActions";
 
-const PostCard = ({ postData }) => {
+const PostCard = ({ postData, screenName }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [like, setLike] = useState(false);
@@ -39,7 +39,10 @@ const PostCard = ({ postData }) => {
   }, [postData.likes]);
 
   return (
-    <div className="flex flex-col mb-4" style={{ flexBasis: "31%" }}>
+    <div
+      className="flex flex-col mb-4"
+      style={{ flexBasis: screenName === "Profile" ? "45%" : "31%" }}
+    >
       <div
         className="rounded-lg"
         style={{
