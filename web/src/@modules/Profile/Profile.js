@@ -5,15 +5,14 @@ import {
   getUserProfile,
   getUserPosts,
 } from "@store/userProfile/UserProfileActions";
+import { ProfileInfo, ProfilePosts } from "./components";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
   const { userId } = (props.location && props.location.state) || {};
   const [otherUser, setOtherUser] = useState(false);
 
-  const otherUserData = useSelector(
-    ({ Foodbook }) => Foodbook.userProfile.userProfile
-  );
+  const otherUserData = useSelector(({ Foodbook }) => Foodbook.userProfile);
   const userData = useSelector(({ Foodbook }) => Foodbook.auth);
 
   useEffect(() => {
@@ -34,7 +33,24 @@ const Profile = (props) => {
   console.log("otherUser", otherUser);
   return (
     <div>
-      <p>Testing profile</p>
+      <ProfileInfo
+        userData={otherUser ? otherUserData?.userProfile : userData?.user}
+        postsCount={
+          otherUser ? otherUserData?.postsCount : userData?.postsCount
+        }
+        followingList={
+          otherUser ? otherUserData?.followingList : userData?.followingList
+        }
+        followersList={
+          otherUser ? otherUserData?.followersList : userData?.followersList
+        }
+        alreadyFollowing={
+          otherUser
+            ? otherUserData?.alreadyFollowing
+            : userData?.alreadyFollowing
+        }
+      />
+      <ProfilePosts />
     </div>
   );
 };

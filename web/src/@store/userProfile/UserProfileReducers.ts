@@ -3,6 +3,7 @@ const INITIAL_STATE: UserProfileState = {
   userProfile: {},
   profilePosts: [],
   otherUserFoodAndI: false,
+  postsCount: 0,
   followingList: "0",
   followersList: "0",
   alreadyFollowing: "false",
@@ -25,6 +26,7 @@ const UserProfileReducer = (
       return {
         ...state,
         userProfile: action.payload.user,
+        postsCount: action.payload.postsCount,
         followingList: action.payload.followingList,
         followersList: action.payload.followersList,
         alreadyFollowing: action.payload.alreadyFollowing,

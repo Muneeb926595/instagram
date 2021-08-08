@@ -15,7 +15,7 @@ const Navbar = () => {
     settings: false,
   });
 
-  const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
+  const userData = useSelector(({ Foodbook }) => Foodbook.auth);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -128,12 +128,12 @@ const Navbar = () => {
       </div>
 
       <div className="flex flex-col items-center mt-8">
-        <Avatar uri={userData?.image} profile size="130" />
+        <Avatar uri={userData?.user?.image} profile size="130" />
         <p className="text-gray-700 font-sans font-bold text-lg mt-4">
-          {userData?.userName}
+          {userData?.user?.userName}
         </p>
         <p className=" font-sans text-sm gradient-text">
-          @{userData?.userName}
+          @{userData?.user?.userName}
         </p>
       </div>
 
@@ -142,17 +142,23 @@ const Navbar = () => {
         style={{ margin: "0 auto", marginTop: "1.6rem" }}
       >
         <div className="flex flex-col justify-center items-center">
-          <p className="text-gray-700 font-sans font-bold text-base">19</p>
+          <p className="text-gray-700 font-sans font-bold text-base">
+            {userData?.postsCount}
+          </p>
           <p className="text-gray-500 font-sans text-sm">Posts</p>
         </div>
         <div style={{ height: "4vh", border: "1px solid #dbdbdb" }}></div>
         <div className="flex flex-col justify-center items-center">
-          <p className="text-gray-700 font-sans font-bold text-base ">19.2k</p>
+          <p className="text-gray-700 font-sans font-bold text-base ">
+            {userData?.followersList?.length}
+          </p>
           <p className="text-gray-500 font-sans text-sm">Followers</p>
         </div>
         <div style={{ height: "4vh", border: "1px solid #dbdbdb" }}></div>
         <div className="flex flex-col justify-center items-center">
-          <p className="text-gray-700 font-sans font-bold text-base ">2M</p>
+          <p className="text-gray-700 font-sans font-bold text-base ">
+            {userData?.followingList?.length}
+          </p>
           <p className="text-gray-500 font-sans text-sm">Followings</p>
         </div>
       </div>
