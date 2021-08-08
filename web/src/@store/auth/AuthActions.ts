@@ -215,3 +215,11 @@ const getUserSuccess = (dispatch, data) => {
     payload: data,
   });
 };
+
+export const upateUserPostCount = () => {
+  return (dispatch) => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_POST_COUNT,
+    });
+  };
+};

@@ -41,3 +41,12 @@ export const getPostUrl = () => {
 export const getLikeUrl = () => {
   return encodeURI("likes");
 };
+export const getFollowUnFollowUrl = () => {
+  return encodeURI("followUnFollow");
+};
+export const getUserFollowingsUrl = (id) => {
+  return encodeURI("followings/" + id);
+};
+export const getRemoveFollowerFollowingUrl = () => {
+  return encodeURI("removeFollowerFollowing");
+};
