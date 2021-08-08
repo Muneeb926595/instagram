@@ -166,3 +166,9 @@ const ProfileInfo = ({
 };
 
 export default ProfileInfo;
+//TODO: in this page add the sections of About me , Activity , Locations , Favourite Tags
+
+//About me section can be jus like instagram description
+//Activity can be ArtWorker,model
+//location  ca be ==> actual user location in text formate
+//Favourite Tags can be ==>  photomodal,modal,usa,artworket etc...
