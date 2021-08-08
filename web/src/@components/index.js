@@ -3,6 +3,7 @@ export { default as Icon } from "./Icon";
 export { default as Clickable } from "./Clickable";
 export { default as Input } from "./Input";
 export { default as HeaderSearch } from "./HeaderSearch";
+export { default as Loader } from "./Loader";
 export { default as AppHeader } from "./AppHeader";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Stories } from "./Stories/Stories";

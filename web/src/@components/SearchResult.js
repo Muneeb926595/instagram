@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useOutsideClick } from "@customeHooks";
-import { Avatar, Clickable } from "@components";
+import { Avatar, Clickable, Loader } from "@components";
 
 const useStyles = makeStyles(() => ({
   triangleUp: {
@@ -24,7 +24,7 @@ const SearchResult = ({ closeModal }) => {
   const history = useHistory();
   const wrapperRef = useRef(null);
 
-  const searchResult = useSelector(({ Foodbook }) => Foodbook.search.users);
+  const { users, loading } = useSelector(({ Foodbook }) => Foodbook.search);
 
   useOutsideClick(wrapperRef, () => {
     closeModal();
@@ -44,35 +44,51 @@ const SearchResult = ({ closeModal }) => {
       }}
     >
       <div className={classes.triangleUp}></div>
-      {searchResult?.length > 0 &&
-        searchResult?.map((singleUser) => (
-          <Clickable
-            onClick={() =>
-              history.push({
-                pathname: "/profile",
-                state: { userId: singleUser?._id },
-              })
-            }
-          >
-            <div
-              className="flex flex-row items-center mb-3 pb-2"
-              style={{ borderBottom: "1px solid #dbdbdb" }}
-            >
-              <Avatar uri={singleUser?.image} size="60" noCircle />
-              <div>
-                <p className="ml-3 font-semibold font-sans text-sm">
-                  {singleUser?.userName}
-                </p>
-                <p
-                  className="ml-3 
-                 font-sans text-sm"
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        <>
+          {users?.length > 0 &&
+            users?.map((singleUser) => (
+              <Clickable
+                onClick={() =>
+                  history.push({
+                    pathname: "/profile",
+                    state: { userId: singleUser?._id },
+                  })
+                }
+              >
+                <div
+                  className="flex flex-row items-center mb-3 pb-2"
+                  style={{ borderBottom: "1px solid #dbdbdb" }}
                 >
-                  {singleUser?.email}
-                </p>
-              </div>
-            </div>
-          </Clickable>
-        ))}
+                  <Avatar uri={singleUser?.image} size="60" noCircle />
+                  <div>
+                    <p className="ml-3 font-semibold font-sans text-sm">
+                      {singleUser?.userName}
+                    </p>
+                    <p
+                      className="ml-3 
+                 font-sans text-sm"
+                    >
+                      {singleUser?.email}
+                    </p>
+                  </div>
+                </div>
+              </Clickable>
+            ))}
+        </>
+      )}
     </div>
   );
 };
