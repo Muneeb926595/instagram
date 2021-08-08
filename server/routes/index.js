@@ -3,6 +3,7 @@ const postRoutes = require("./post/post");
 const likesRoutes = require("./likes/likes");
 const storiesRoutes = require("./stories/stories");
 const favouritesRoutes = require("./favourites/favourites");
+const searchRoutes = require("./search/search");
 const followRoutes = require("./follow/follow");
 
 module.exports = [].concat(
@@ -11,5 +12,6 @@ module.exports = [].concat(
   storiesRoutes,
   likesRoutes,
   followRoutes,
+  searchRoutes,
   favouritesRoutes
 );
