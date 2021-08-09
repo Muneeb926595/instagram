@@ -1,7 +1,12 @@
 import { axiosInstance as axios } from "@api/axios";
 import { LikeActionTypes } from "../redux/actionTypes";
-import { getLikeUrl } from "@api/Endpoint";
+import {
+  getLikeUrl,
+  getFavouritesUrl,
+  getAddToFavouriteUrl,
+} from "@api/Endpoint";
 import { Like } from "@models/Like";
+import { Favourite } from "@models/Favourite";
 
 export const getLikes = () => {
   return (dispatch) => {
@@ -79,5 +84,84 @@ const likePostSuccess = (dispatch, data) => {
   dispatch({
     type: LikeActionTypes.LIKE_POST_SUCCESS,
     payload: data,
+  });
+};
+
+export const addToFavourite = (favourite: Favourite) => {
+  return async (dispatch) => {
+    dispatch({
+      type: LikeActionTypes.ADD_TO_FAVOURITE_START,
+    });
+    const url = getAddToFavouriteUrl();
+    const request = {
+      userId: localStorage.getItem("userId"),
+      postId: favourite.postId,
+      favourite: favourite.favourite,
+    };
+    axios
+      .post(url, request)
+      .then((res) => {
+        let { data } = res;
+        if (data) {
+          addToFavouriteSuccess(dispatch, data);
+        } else {
+          addToFavouriteFail(dispatch, "There was an error connection");
+        }
+      })
+      .catch((error) => {
+        addToFavouriteFail(dispatch, "There was an error connection2");
+      });
+  };
+};
+const addToFavouriteFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: LikeActionTypes.ADD_TO_FAVOURITE_FAIL,
+    payload: {
+      errorMessage,
+    },
+  });
+};
+const addToFavouriteSuccess = (dispatch, data) => {
+  dispatch({
+    type: LikeActionTypes.ADD_TO_FAVOURITE_SUCCESS,
+    payload: data,
+  });
+};
+
+export const getFavourites = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: LikeActionTypes.GET_FAVOURITES_START,
+    });
+    const url = getFavouritesUrl(localStorage.getItem("userId"));
+    axios
+      .get(url)
+      .then((res) => {
+        let { favourites } = res.data;
+        if (favourites) {
+          getFavouritesSuccess(dispatch, favourites);
+        } else {
+          getFavouritesFail(dispatch, "There was an error connection");
+        }
+      })
+      .catch((error) => {
+        getFavouritesFail(dispatch, "There was an error connection2");
+      });
+  };
+};
+const getFavouritesFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: LikeActionTypes.GET_FAVOURITES_FAIL,
+    payload: {
+      errorMessage,
+    },
+  });
+};
+const getFavouritesSuccess = (dispatch, favourites) => {
+  dispatch({
+    type: LikeActionTypes.GET_FAVOURITES_SUCCESS,
+    payload: favourites,
   });
 };

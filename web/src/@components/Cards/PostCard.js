@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Avatar, Icon, PostImage, Clickable } from "@components";
-import { likePost } from "@store/like/LikeActions";
+import { likePost, addToFavourite } from "@store/like/LikeActions";
 import {
   addPostLikeLocally,
   removePostLikeLocally,
@@ -13,6 +13,7 @@ const PostCard = ({ postData, screenName }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [like, setLike] = useState(false);
+  const [isFavourite, setIsFavourite] = useState(false);
   const [likeCounts, setLikeCounts] = useState(0);
 
   const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
@@ -37,6 +38,24 @@ const PostCard = ({ postData, screenName }) => {
       setLikeCounts(postData.likes.count);
     }
   }, [postData.likes]);
+
+  useEffect(() => {
+    if (postData?.favourites > 0) {
+      setIsFavourite(true);
+    } else {
+      setIsFavourite(false);
+    }
+  }, [postData]);
+
+  const handleAddToFavourite = () => {
+    setIsFavourite(!isFavourite);
+    dispatch(
+      addToFavourite({
+        postId: postData?._id,
+        favourite: !isFavourite,
+      })
+    );
+  };
 
   return (
     <div
@@ -115,7 +134,9 @@ const PostCard = ({ postData, screenName }) => {
             </p>
           </div>
           <div className="flex flex-row items-center">
-            <Icon type="saved-filled" size="24px" />
+            <Clickable onClick={handleAddToFavourite}>
+              <Icon type={isFavourite ? "saved-filled" : "saved"} size="24px" />
+            </Clickable>
             <p className="font-sans font-semibold text-xs mx-1">13k</p>
           </div>
         </div>
