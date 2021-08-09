@@ -38,6 +38,44 @@ exports.getAllPosts = async (req, res, next) => {
     },
     {
       $lookup: {
+        from: "favourites",
+        as: "favourites",
+        let: { postId: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$postId", "$$postId"] },
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              as: "userId",
+              let: { userId: "$userId" },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: { $eq: ["$_id", "$$userId"] },
+                  },
+                },
+                { $project: { fullName: 1, userName: 1, email: 1, image: 1 } },
+              ],
+            },
+          },
+          { $sort: { createdAt: -1 } },
+          { $unwind: "$userId" },
+        ],
+      },
+    },
+    {
+      $addFields: {
+        favourites: {
+          $size: "$favourites",
+        },
+      },
+    },
+    {
+      $lookup: {
         from: "comments",
         localField: "_id",
         foreignField: "postId",

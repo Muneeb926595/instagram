@@ -54,3 +54,9 @@ export const getRemoveFollowerFollowingUrl = () => {
 export const getSearchUrl = (searchText) => {
   return encodeURI("search?searchText=" + searchText);
 };
+export const getAddToFavouriteUrl = () => {
+  return encodeURI("favourites");
+};
+export const getFavouritesUrl = (userId) => {
+  return encodeURI("favourites/" + userId);
+};
