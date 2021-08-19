@@ -1,7 +1,8 @@
 import { ModlasActionTypes } from "./../redux/actionTypes";
 
 const INITIAL_STATE: ModalsState = {
-    addPostModal: { isVisible: false, modalPayload: {} },
+  addPostModal: { isVisible: false, modalPayload: {} },
+  commentsModal: { isVisible: false, modalPayload: {} },
 };
 interface Action {
   payload: any;
@@ -21,7 +22,16 @@ const AuthReducer = (
         },
       };
     }
-    
+    case ModlasActionTypes.SHOW_COMMENTS_MODAL: {
+      return {
+        ...state,
+        commentsModal: {
+          isVisible: action.payload.isVisible,
+          modalPayload: action.payload.modalPayload,
+        },
+      };
+    }
+
     default: {
       return state;
     }

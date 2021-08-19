@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { Avatar, Icon, PostImage, Clickable } from "@components";
 import { likePost, addToFavourite } from "@store/like/LikeActions";
+import { setShowCommentsModal } from "@store/modals/ModalsActions";
 import {
   addPostLikeLocally,
   removePostLikeLocally,
@@ -61,17 +62,39 @@ const PostCard = ({ postData, screenName }) => {
     );
   };
 
+  const handleOpenCommentsModal = () => {
+    dispatch(
+      setShowCommentsModal({
+        isVisible: true,
+        modalPayload: {
+          mediaFiles: postData?.mediaFiles,
+          userImage: userData?.image,
+          userName: userData?.userName,
+          otherUserName: postData?.users?.[0]?.userName,
+          postAuthorImage: postData?.users?.[0]?.image,
+          screenName: screenName,
+          like: like,
+          isFavourite: isFavourite,
+          postId: postData?._id,
+          commentsCount: postData?.comments?.length,
+          likesCount: postData?.likes?.likes?.length,
+        },
+      })
+    );
+  };
+
   return (
     <div
       className="flex flex-col mb-4"
       style={{ flexBasis: screenName === "Profile" ? "45%" : "31%" }}
     >
       <div
-        className="rounded-lg"
+        className="rounded-lg cursor-pointer "
         style={{
           height: "36vh",
           objectFit: "cover",
         }}
+        onClick={handleOpenCommentsModal}
       >
         <PostImage hasRadius="0.5rem" mediaFiles={postData?.mediaFiles} />
       </div>

@@ -8,3 +8,12 @@ export const setShowAddPostModal = (modalPayload) => {
     });
   };
 };
+
+export const setShowCommentsModal = (modalPayload) => {
+  return (dispatch) => {
+    dispatch({
+      type: ModlasActionTypes.SHOW_COMMENTS_MODAL,
+      payload: modalPayload,
+    });
+  };
+};

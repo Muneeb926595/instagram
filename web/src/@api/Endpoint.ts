@@ -60,3 +60,9 @@ export const getAddToFavouriteUrl = () => {
 export const getFavouritesUrl = (userId) => {
   return encodeURI("favourites/" + userId);
 };
+export const addCommentUrl = () => {
+  return encodeURI("comments");
+};
+export const getCommentUrl = (id) => {
+  return encodeURI("comments/" + id);
+};
