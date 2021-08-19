@@ -8,6 +8,8 @@ in feature/FEAT3 ---> Home Page Complete With Stories header and posts along wit
 
 in feature/FEAT4  ---> UserProfile/OtherUser Profile and follow/Unfollow
 
-in feature/FEAT5  ---> App Search and Add To Favourites
+in feature/FEAT5  ---> App Search , Add To Favourites And Comments + Taging in comments
+
+in feature/FEAT6  ---> Messenger
 
 
