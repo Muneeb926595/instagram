@@ -1,6 +1,7 @@
+import { Favourite } from "@models/Favourite";
+import { Story } from "@models/Story";
 import { User } from "@models/User";
 import { Post } from "@models/Post";
-import { Story } from "@models/Story";
 import { Like } from "@models/Like";
 
 export {};
@@ -36,6 +37,7 @@ declare global {
   }
   interface LikeState {
     like: Like;
+    favourite: Favourite;
     loading?: boolean;
   }
   interface UserProfileState {
