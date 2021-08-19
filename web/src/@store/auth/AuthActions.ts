@@ -36,7 +36,6 @@ export const submitLogin = (user: User, history: any) => {
       })
       .catch((error) => {
         console.log(error.message);
-        console.log(error.response.data);
         if (error?.response?.data === "Email not found") {
           toast.error("Email not found");
         } else if (error?.response?.data === "Password is invalid!") {

@@ -40,6 +40,7 @@ const Stories = ({ otherUser }) => {
               story.stories &&
               story.stories.length > 0 && (
                 <Story
+                  userId={story?._id}
                   storyId={story._id}
                   userImage={story.image}
                   userName={story.userName}
@@ -57,6 +58,7 @@ const Stories = ({ otherUser }) => {
               story.stories &&
               story.stories.length > 0 && (
                 <Story
+                  userId={story?._id}
                   storyId={story._id}
                   userImage={story.image}
                   userName={story.userName}

@@ -6,8 +6,6 @@ import { Icon } from "@components";
 import userPlaceholder from "assets/icons/user-placeholder.png";
 import { followUnFollow } from "@store/followers/FollowersActions";
 
-const baseUrl = "";
-
 const useStyles = makeStyles(() => ({
   postImage: {
     height: "100%",
@@ -79,7 +77,7 @@ const ProfileInfo = ({
               userData?.image
                 ? userImageHasHttp
                   ? userData?.image
-                  : baseUrl + userData?.image
+                  : process.env.REACT_APP_API_BASE_URL + userData?.image
                 : userPlaceholder
             }
             alt="mediaFiles"

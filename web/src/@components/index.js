@@ -12,4 +12,6 @@ export { default as AddPostModal } from "./AddPostModal";
 export { default as CustomModal } from "./CustomModal";
 export { default as PostImage } from "./PostImage";
 export { default as Dots } from "./Dots";
+export { default as StoriesScreen } from "./StoriesScreen";
+export { default as CrossButton } from "./CrossButton";
 export { PostCard, StoryCard } from "./Cards";
