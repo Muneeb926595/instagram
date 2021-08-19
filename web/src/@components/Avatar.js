@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import userPlaceholder from "assets/icons/user-placeholder.png";
 
-const baseUrl = "";
-
 const Wrapper = styled.div`
   width: ${(props) => props.size + "px"};
   height: ${(props) => props.size + "px"};
@@ -77,7 +75,9 @@ function Avatar(props) {
         }}
       >
         <img
-          src={userImageHasHttp ? uri : baseUrl + uri}
+          src={
+            userImageHasHttp ? uri : process.env.REACT_APP_API_BASE_URL + uri
+          }
           alt="avatar"
           style={{
             width: profile ? size - 20 : size - 4,

@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { Icon, Avatar } from "@components";
+import { Icon, Avatar, CustomModal, StoriesScreen } from "@components";
+import { getLastPostDuration } from "@helpers/timeDateUtils";
+import { formateImageUrl } from "@helpers/formateImageUrl";
+import userPlaceholder from "assets/icons/user-placeholder.png";
 
 const Navbar = () => {
   const history = useHistory();
+  const [showStoriesModal, setShowStoriesModal] = useState(false);
+  const [filteredStories, setFilteredStories] = useState();
+  const [userImageHasHttp, setUserImageHasHttp] = useState(false);
+  const [showStoryCircle, setShowStoryCircle] = useState(false);
   const [selectedOption, setSelectedOption] = useState({
     home: true,
     profile: false,
@@ -14,6 +21,57 @@ const Navbar = () => {
   });
 
   const userData = useSelector(({ Foodbook }) => Foodbook.auth);
+  const myStoriesData = useSelector(
+    ({ Foodbook }) => Foodbook.stories.myStories
+  );
+
+  useEffect(() => {
+    if (userData?.user?.image && userData?.user?.image !== "undefined") {
+      const prefix = userData?.user?.image.toString().split("/")[0];
+      if (prefix === "images") {
+        setUserImageHasHttp(false);
+      } else {
+        setUserImageHasHttp(true);
+      }
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    const tempStories = [];
+    myStoriesData.map((story) =>
+      tempStories.push({
+        url: story.video
+          ? process.env.REACT_APP_API_BASE_URL + story.video
+          : process.env.REACT_APP_API_BASE_URL + story.image,
+        duration: 3000,
+        type: story.video ? "video" : "image",
+        header: {
+          heading: userData?.user?.userName,
+          subheading: getLastPostDuration(story.createdAt),
+          profileImage: userData?.user?.image
+            ? userImageHasHttp
+              ? userData?.user?.image
+              : formateImageUrl(userData?.user?.image)
+            : userPlaceholder,
+        },
+      })
+    );
+    setFilteredStories(tempStories);
+  }, [myStoriesData]);
+
+  useEffect(() => {
+    const totalStoriesCount = myStoriesData.length;
+    let viewedStoriesCount = 0;
+    myStoriesData.map((singleStory) => {
+      if (singleStory.viewers.includes(localStorage.getItem("userId"))) {
+        viewedStoriesCount = viewedStoriesCount + 1;
+      }
+      return null;
+    });
+    if (viewedStoriesCount < totalStoriesCount) {
+      setShowStoryCircle(true);
+    }
+  }, [myStoriesData]);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -91,7 +149,22 @@ const Navbar = () => {
         <Icon type="instagram" width="auto" height="auto" marg="4px 0 0 0" />
       </div>
 
-      <div className="flex flex-col items-center mt-8">
+      <div
+        className="flex flex-col items-center mt-8 cursor-pointer "
+        onClick={() => setShowStoriesModal(true)}
+      >
+        {showStoryCircle && (
+          <div
+            style={{
+              width: "10px",
+              height: "10px",
+              borderRadius: "100px",
+              backgroundColor: "red",
+              position: "absolute",
+              right: "34%",
+            }}
+          ></div>
+        )}
         <Avatar uri={userData?.user?.image} profile size="130" />
         <p className="text-gray-700 font-sans font-bold text-lg mt-4">
           {userData?.user?.userName}
@@ -210,6 +283,21 @@ const Navbar = () => {
           </p>
         </div>
       </div>
+      {myStoriesData && myStoriesData.length > 0 && (
+        <CustomModal
+          onCloseModal={() => setShowStoriesModal(false)}
+          showModal={showStoriesModal}
+          veryDark
+        >
+          <StoriesScreen
+            stories={filteredStories}
+            storiesData={myStoriesData}
+            setShowStoryCircle={setShowStoryCircle}
+            setShowStoriesModal={setShowStoriesModal}
+            fromFoodAndiPage="fromFoodAndiPage"
+          />
+        </CustomModal>
+      )}
     </div>
   );
 };
