@@ -14,4 +14,6 @@ export { default as PostImage } from "./PostImage";
 export { default as Dots } from "./Dots";
 export { default as StoriesScreen } from "./StoriesScreen";
 export { default as CrossButton } from "./CrossButton";
+export { default as Comment } from "./Comment";
+export { default as CommentsModal } from "./CommentsModal";
 export { PostCard, StoryCard } from "./Cards";

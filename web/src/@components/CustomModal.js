@@ -17,7 +17,7 @@ export default function CustomModal({
         style: {
           backgroundColor: `${
             dark
-              ? "rgb(0,0,0,0.6)"
+              ? "rgb(0,0,0,0.4)"
               : veryDark
               ? "rgb(0,0,0,0.8)"
               : "rgb(0,0,0,0.2)"

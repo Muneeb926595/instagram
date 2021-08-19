@@ -1,11 +1,12 @@
 import React from "react";
 
-import { AddPostModal } from "@components";
+import { AddPostModal, CommentsModal } from "@components";
 
 const Modals = () => {
   return (
     <>
       <AddPostModal />
+      <CommentsModal />
     </>
   );
 };

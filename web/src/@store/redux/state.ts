@@ -2,6 +2,7 @@ import { Favourite } from "@models/Favourite";
 import { Story } from "@models/Story";
 import { User } from "@models/User";
 import { Post } from "@models/Post";
+import { Comment } from "@models/Comment";
 import { Like } from "@models/Like";
 
 export {};
@@ -16,6 +17,11 @@ declare global {
   }
   interface ModalsState {
     addPostModal: any;
+    commentsModal: any;
+  }
+  interface CommentState {
+    comment: Comment;
+    loading?: boolean;
   }
   interface FollowUnFollowState {
     followingList?: any;
