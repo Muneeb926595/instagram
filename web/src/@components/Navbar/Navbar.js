@@ -9,10 +9,8 @@ const Navbar = () => {
   const [selectedOption, setSelectedOption] = useState({
     home: true,
     profile: false,
-    explore: false,
     igtv: false,
     saved: false,
-    settings: false,
   });
 
   const userData = useSelector(({ Foodbook }) => Foodbook.auth);
@@ -28,10 +26,8 @@ const Navbar = () => {
         setSelectedOption({
           home: true,
           profile: false,
-          explore: false,
           igtv: false,
           saved: false,
-          settings: false,
         });
         history.push("/home");
         break;
@@ -39,32 +35,17 @@ const Navbar = () => {
         setSelectedOption({
           home: false,
           profile: true,
-          explore: false,
           igtv: false,
           saved: false,
-          settings: false,
         });
         history.push("/profile");
-        break;
-      case "explore":
-        setSelectedOption({
-          home: false,
-          profile: false,
-          explore: true,
-          igtv: false,
-          saved: false,
-          settings: false,
-        });
-        history.push("/explore");
         break;
       case "igtv":
         setSelectedOption({
           home: false,
           profile: false,
-          explore: false,
           igtv: true,
           saved: false,
-          settings: false,
         });
         history.push("/igtv");
         break;
@@ -72,10 +53,8 @@ const Navbar = () => {
         setSelectedOption({
           home: false,
           profile: false,
-          explore: false,
           igtv: false,
           saved: true,
-          settings: false,
         });
         history.push("/saved");
         break;
@@ -83,32 +62,17 @@ const Navbar = () => {
         setSelectedOption({
           home: false,
           profile: false,
-          explore: false,
           igtv: false,
           saved: false,
-          settings: false,
         });
         history.push("/stats");
-        break;
-      case "settings":
-        setSelectedOption({
-          home: false,
-          profile: false,
-          explore: false,
-          igtv: false,
-          saved: false,
-          settings: true,
-        });
-        history.push("/settings");
         break;
       default:
         setSelectedOption({
           home: true,
           profile: false,
-          explore: false,
           igtv: false,
           saved: false,
-          settings: false,
         });
         history.push("/home");
         break;
@@ -202,23 +166,6 @@ const Navbar = () => {
 
         <div
           className="flex items-center  mb-6 cursor-pointer"
-          onClick={() => handleChangeSelectedTab("explore")}
-        >
-          <Icon
-            type={selectedOption.explore ? "explore-active" : "explore"}
-            size="24px"
-          />
-          <p
-            className={`text-l ml-4 font-medium ${
-              selectedOption.explore ? "gradient-text" : "text-gray-500"
-            } font-sans`}
-          >
-            Explore
-          </p>
-        </div>
-
-        <div
-          className="flex items-center  mb-6 cursor-pointer"
           onClick={() => handleChangeSelectedTab("igtv")}
         >
           <Icon
@@ -251,22 +198,6 @@ const Navbar = () => {
           </p>
         </div>
 
-        <div
-          className="flex items-center  mb-8 cursor-pointer"
-          onClick={() => handleChangeSelectedTab("settings")}
-        >
-          <Icon
-            type={selectedOption.settings ? "settings-active" : "settings"}
-            size="24px"
-          />
-          <p
-            className={`text-l ml-4 font-medium ${
-              selectedOption.settings ? "gradient-text" : "text-gray-500"
-            } font-sans`}
-          >
-            Settings
-          </p>
-        </div>
         <div style={{ width: "100%", borderBottom: "1px solid #dbdbdb" }}></div>
 
         <div

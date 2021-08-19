@@ -55,7 +55,6 @@ const Signup = () => {
           imageUrl: additionalUserInfo.profile.picture,
           userName: additionalUserInfo.profile.name,
         };
-        console.log(data);
         if (data.email) {
           dispatch(socialLogin(data, history));
         } else {

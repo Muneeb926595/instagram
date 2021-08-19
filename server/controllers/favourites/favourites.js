@@ -37,10 +37,24 @@ exports.getFavourites = async (req, res, next) => {
         as: "postId",
       },
     },
+    {
+      $lookup: {
+        from: "users",
+        let: { userId: "$userId" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$_id", "$$userId"] },
+            },
+          },
+          { $project: { fullName: 1, userName: 1, email: 1, image: 1 } },
+        ],
+        as: "userData",
+      },
+    },
     { $sort: { createdAt: -1 } },
   ]);
-
-  return res.status(200).send(favourites);
+  return res.status(200).send({ favourites });
 };
 
 exports.deleteUserFavourites = async (userId) => {

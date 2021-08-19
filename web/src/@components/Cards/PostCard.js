@@ -40,10 +40,14 @@ const PostCard = ({ postData, screenName }) => {
   }, [postData.likes]);
 
   useEffect(() => {
-    if (postData?.favourites > 0) {
+    if (screenName === "Saved") {
       setIsFavourite(true);
     } else {
-      setIsFavourite(false);
+      if (postData?.favourites > 0) {
+        setIsFavourite(true);
+      } else {
+        setIsFavourite(false);
+      }
     }
   }, [postData]);
 
@@ -90,54 +94,57 @@ const PostCard = ({ postData, screenName }) => {
         </div>
 
         <div className="flex flex-row items-center">
-          <div className="flex flex-row items-center">
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                dispatch(
-                  likePost({
-                    userId: localStorage.getItem("userId"),
-                    postId: postData?._id,
-                    like: !like,
-                  })
-                );
-
-                like
-                  ? dispatch(
-                      removePostLikeLocally(
-                        postData?._id,
-                        localStorage.getItem("userId"),
-                        !like
-                      )
-                    )
-                  : dispatch(
-                      addPostLikeLocally(
-                        postData?._id,
-                        localStorage.getItem("userId"),
-                        !like,
-                        userData.image,
-                        userData.userName
-                      )
+          {screenName !== "Saved" && (
+            <>
+              <div className="flex flex-row items-center">
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    dispatch(
+                      likePost({
+                        userId: localStorage.getItem("userId"),
+                        postId: postData?._id,
+                        like: !like,
+                      })
                     );
-              }}
-            >
-              <Icon type={`${like ? "like-filled" : "like"}`} size="24px" />
-            </div>
-            <p className="font-sans font-semibold text-xs mx-1">
-              {postData?.likes?.likes?.length}
-            </p>
-          </div>
-          <div className="flex flex-row items-center">
-            <Icon type="comment-filled" size="24px" />
-            <p className="font-sans font-semibold text-xs mx-1">
-              {postData?.comments?.length}
-            </p>
-          </div>
+
+                    like
+                      ? dispatch(
+                          removePostLikeLocally(
+                            postData?._id,
+                            localStorage.getItem("userId"),
+                            !like
+                          )
+                        )
+                      : dispatch(
+                          addPostLikeLocally(
+                            postData?._id,
+                            localStorage.getItem("userId"),
+                            !like,
+                            userData.image,
+                            userData.userName
+                          )
+                        );
+                  }}
+                >
+                  <Icon type={`${like ? "like-filled" : "like"}`} size="24px" />
+                </div>
+                <p className="font-sans font-semibold text-xs mx-1">
+                  {postData?.likes?.likes?.length}
+                </p>
+              </div>
+              <div className="flex flex-row items-center">
+                <Icon type="comment-filled" size="24px" />
+                <p className="font-sans font-semibold text-xs mx-1">
+                  {postData?.comments?.length}
+                </p>
+              </div>
+            </>
+          )}
           <div className="flex flex-row items-center">
             <Clickable onClick={handleAddToFavourite}>
               <Icon type={isFavourite ? "saved-filled" : "saved"} size="24px" />
             </Clickable>
-            <p className="font-sans font-semibold text-xs mx-1">13k</p>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { LikeActionTypes } from "./../redux/actionTypes";
 const INITIAL_STATE: LikeState = {
   like: {},
+  favourite: {},
   loading: false,
 };
 interface Action {
@@ -44,6 +45,38 @@ const LikeReducer = (
       return {
         ...state,
         like: action.payload,
+        loading: false,
+      };
+    }
+    case LikeActionTypes.ADD_TO_FAVOURITE_START: {
+      return { ...state, loading: false };
+    }
+    case LikeActionTypes.ADD_TO_FAVOURITE_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case LikeActionTypes.ADD_TO_FAVOURITE_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case LikeActionTypes.GET_FAVOURITES_START: {
+      return { ...state, loading: false };
+    }
+    case LikeActionTypes.GET_FAVOURITES_SUCCESS: {
+      return {
+        ...state,
+        favourite: action.payload,
+        loading: false,
+      };
+    }
+    case LikeActionTypes.GET_FAVOURITES_FAIL: {
+      return {
+        ...state,
+        favourite: action.payload,
         loading: false,
       };
     }
