@@ -8,6 +8,7 @@ const followRoutes = require("./follow/follow");
 const messageRoutes = require("./message/message");
 const contactsRoutes = require("./contacts/contacts");
 const commentRoutes = require("./comment/comment");
+const notificationsRoutes = require("./notifications/notifications");
 
 module.exports = [].concat(
   clientRoutes,
@@ -19,5 +20,6 @@ module.exports = [].concat(
   favouritesRoutes,
   messageRoutes,
   contactsRoutes,
-  commentRoutes
+  commentRoutes,
+  notificationsRoutes
 );

@@ -1,6 +1,7 @@
 import { Favourite } from "@models/Favourite";
 import { Story } from "@models/Story";
 import { User } from "@models/User";
+import { Notification } from "@models/Notification";
 import { Post } from "@models/Post";
 import { Comment } from "@models/Comment";
 import { Like } from "@models/Like";
@@ -23,6 +24,12 @@ declare global {
   }
   interface CommentState {
     comment: Comment;
+    loading?: boolean;
+  }
+  interface NotificationState {
+    unreadNotificationsCount: any;
+    notificationsList: Notification[];
+    postData?: Post;
     loading?: boolean;
   }
   interface FollowUnFollowState {

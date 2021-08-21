@@ -8,6 +8,7 @@ import comment from "../comments/CommentReducer";
 import stories from "../stories/StoriesReducers";
 import userProfile from "../userProfile/UserProfileReducers";
 import search from "../search/SearchReducers";
+import notifications from "../notifications/NotificationsReducer";
 import post from "../post/PostReducers";
 import follow from "../followers/FollowersReducers";
 
@@ -22,6 +23,7 @@ const Foodbook = combineReducers({
   message,
   stories,
   userProfile,
+  notifications,
 });
 
 export default Foodbook;
