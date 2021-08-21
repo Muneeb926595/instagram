@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
 import { Icon } from "@components";
+import userPlaceholder from "assets/icons/user-placeholder.png";
 import { lighterImage } from "@helpers/imageCompression";
 import { isImage, isVideo } from "@helpers/utils";
 import { addStory } from "@store/stories/StoriesActions";
 
-const AddStory = () => {
+const AddStory = ({ userImage }) => {
   const dispatch = useDispatch();
+  const [userImageHasHttp, setUserImageHasHttp] = useState(false);
+
+  useEffect(() => {
+    if (userImage && userImage !== "undefined") {
+      const prefix = userImage.toString().split("/")[0];
+      if (prefix === "images") {
+        setUserImageHasHttp(false);
+      } else {
+        setUserImageHasHttp(true);
+      }
+    }
+  }, [userImage]);
+
   const uploadFile = async (event) => {
     let file1 = event.target.files[0];
     if (file1.type.split("/")[0] === "image") {
@@ -36,8 +50,7 @@ const AddStory = () => {
       addStory({ userId: localStorage.getItem("userId"), imageFile: file1 })
     );
   };
-  const userImage =
-    "https://images.unsplash.com/photo-1483985988355-763728e1935b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmd8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60";
+
   return (
     <>
       <input
@@ -56,7 +69,13 @@ const AddStory = () => {
             minWidth: "9rem",
             height: "22vh",
             position: "relative",
-            backgroundImage: `url(${userImage})`,
+            backgroundImage: `url(${
+              userImage
+                ? userImageHasHttp
+                  ? userImage
+                  : process.env.REACT_APP_API_BASE_URL + userImage
+                : userPlaceholder
+            })`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundSize: "cover",

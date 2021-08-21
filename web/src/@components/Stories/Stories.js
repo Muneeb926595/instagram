@@ -7,6 +7,7 @@ import { getStories } from "@store/stories/StoriesActions";
 const Stories = ({ otherUser }) => {
   const dispatch = useDispatch();
 
+  const logedInUserData = useSelector(({ Foodbook }) => Foodbook.auth.user);
   const unReadStoriesData = useSelector(
     ({ Foodbook }) => Foodbook.stories.stories.UnreadStoriesData
   );
@@ -32,7 +33,7 @@ const Stories = ({ otherUser }) => {
     <div className="flex flex-col w-full  mt-8">
       <p className="text-gray-700 font-sans font-bold text-lg ">Stories</p>
       <div className="flex flex-row items-center mt-3 overflow-scroll overflow-y-hidden no-scrollbar">
-        {!otherUser && <AddStory />}
+        {!otherUser && <AddStory userImage={logedInUserData?.image} />}
         {localUnReadStoriesData &&
           localUnReadStoriesData.length > 0 &&
           localUnReadStoriesData.map((story) => {
