@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { PostCard, AppHeader, Stories, Loader } from "@components";
 import { getPosts } from "@store/post/PostActions";
+import { getNotifications } from "@store/notifications/NotificationsActions";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getNotifications());
   }, []);
 
   return (

@@ -84,3 +84,12 @@ export const getUserMessagesUrl = (userId, participentId, page, limit) => {
 export const seenAllMessagesUrl = () => {
   return encodeURI("seen-all-messages");
 };
+export const getNotificationsUrl = (userId) => {
+  return encodeURI("notification?userId=" + userId);
+};
+export const getReadNotificationUrl = (id) => {
+  return encodeURI("notification/" + id);
+};
+export const deleteNotificationUrl = (id) => {
+  return encodeURI("delete-notification/" + id);
+};

@@ -1,4 +1,5 @@
 const { Like } = require("../../models/likes/likes");
+const { Notification } = require("../../models/notifications/notifications");
 
 exports.addLike = async (req, res, next) => {
   const { userId, postId, like } = req.body;
@@ -20,6 +21,16 @@ exports.addLike = async (req, res, next) => {
     });
 
     result = await newLike.save();
+
+    const notification = new Notification({
+      userId,
+      read: false,
+      postId,
+      action: "Liked your post ",
+      likeId: result._id,
+    });
+
+    const notificationResult = await notification.save();
   }
 
   return res.status(200).send(result);

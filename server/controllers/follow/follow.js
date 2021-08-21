@@ -1,6 +1,6 @@
 const { User } = require("../../models/auth/user");
 const { Followers } = require("../../models/followers/followers");
-const utils = require("../../utils");
+const { Notification } = require("../../models/notifications/notifications");
 
 exports.followUnfollow = async (req, res, next) => {
   const { userId, id } = req.body;
@@ -25,6 +25,16 @@ exports.followUnfollow = async (req, res, next) => {
   }
   await Followers({ userId: id, following: userId }).save();
   await Followers({ userId: userId, follower: id }).save();
+
+  const notification = new Notification({
+    userId,
+    followedUserId: id,
+    read: false,
+    action: "has started to following you",
+  });
+
+  const notificationResult = await notification.save();
+
   return res.status(200).send("User followed Successfully");
 };
 
