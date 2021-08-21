@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Icon } from "@components";
 import userPlaceholder from "assets/icons/user-placeholder.png";
 import { followUnFollow } from "@store/followers/FollowersActions";
+import { setShowAddNewContactModal } from "@store/modals/ModalsActions";
 
 const useStyles = makeStyles(() => ({
   postImage: {
@@ -21,6 +23,7 @@ const ProfileInfo = ({
   followersList,
   alreadyFollowing,
 }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userImageHasHttp, setUserImageHasHttp] = useState(false);
@@ -54,6 +57,26 @@ const ProfileInfo = ({
     } else {
       setFollowersCount(followersCount + 1);
     }
+  };
+
+  const handleJoinChat = () => {
+    history.push("/messenger");
+
+    setTimeout(() => {
+      dispatch(
+        setShowAddNewContactModal({
+          isVisible: false,
+          modalPayload: {
+            otherUserData: {
+              recieverId: userData?._id,
+              image: userData?.image,
+              userName: userData?.userName,
+            },
+            senderId: localStorage.getItem("userId"),
+          },
+        })
+      );
+    }, 200);
   };
 
   return (
@@ -149,6 +172,7 @@ const ProfileInfo = ({
             </button>
             <button
               className="flex flex-row items-center justify-center  py-2  rounded-lg"
+              onClick={handleJoinChat}
               style={{
                 background: "#ededed",
                 width: "7rem",

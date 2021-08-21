@@ -3,6 +3,8 @@ import { ModlasActionTypes } from "./../redux/actionTypes";
 const INITIAL_STATE: ModalsState = {
   addPostModal: { isVisible: false, modalPayload: {} },
   commentsModal: { isVisible: false, modalPayload: {} },
+  addNewContact: { isVisible: false, modalPayload: {} },
+  newCallAlert: { isVisible: false, modalPayload: {} },
 };
 interface Action {
   payload: any;
@@ -31,7 +33,24 @@ const AuthReducer = (
         },
       };
     }
-
+    case ModlasActionTypes.SHOW_ADD_NEW_CONTACT_MODAL: {
+      return {
+        ...state,
+        addNewContact: {
+          isVisible: action.payload.isVisible,
+          modalPayload: action.payload.modalPayload,
+        },
+      };
+    }
+    case ModlasActionTypes.SHOW_NEW_CALL_ALERT: {
+      return {
+        ...state,
+        newCallAlert: {
+          isVisible: action.payload.isVisible,
+          modalPayload: action.payload.modalPayload,
+        },
+      };
+    }
     default: {
       return state;
     }
