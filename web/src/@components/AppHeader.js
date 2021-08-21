@@ -1,10 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { HeaderSearch, Icon } from "@components";
+import { HeaderSearch, Icon, Clickable } from "@components";
 import { setShowAddPostModal } from "@store/modals/ModalsActions";
 
 const AppHeader = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleOpenAddPostModal = () => {
@@ -15,7 +17,9 @@ const AppHeader = () => {
     <div className="flex flex-row items-center bg-white justify-between ">
       <HeaderSearch />
       <div className="flex flex-row items-center">
-        <Icon type="messenger" marg="0 0.8rem 0 0" size="24px" />
+        <Clickable onClick={() => history.push("/messenger")}>
+          <Icon type="messenger" marg="0 0.8rem 0 0" size="24px" />
+        </Clickable>
         <Icon type="notifications" marg="0  1.4rem 0 0.8rem" size="24px" />
         <button
           onClick={handleOpenAddPostModal}

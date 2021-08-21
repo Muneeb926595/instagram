@@ -66,3 +66,21 @@ export const addCommentUrl = () => {
 export const getCommentUrl = (id) => {
   return encodeURI("comments/" + id);
 };
+export const getContactsUrl = (userId) => {
+  return encodeURI("contacts/" + userId);
+};
+export const getUserMessagesUrl = (userId, participentId, page, limit) => {
+  return encodeURI(
+    "userMessages?userId=" +
+      userId +
+      "&participentId=" +
+      participentId +
+      "&page=" +
+      page +
+      "&limit=" +
+      limit
+  );
+};
+export const seenAllMessagesUrl = () => {
+  return encodeURI("seen-all-messages");
+};

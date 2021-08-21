@@ -34,7 +34,7 @@ const Search = () => {
         <input
           value={searchText}
           onChange={doDebouncedAction}
-          className="font-sans bg-gray-100 py-3 pr-12 h-full outline-none"
+          className="font-sans bg-gray-100 py-3 pr-12 h-full outline-none "
           type="text"
           placeholder="Search"
         />

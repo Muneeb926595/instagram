@@ -6,6 +6,11 @@ const socketio = require("socket.io");
 
 const errorController = require("./controllers/error");
 const routes = require("./routes");
+const { createNewMessage } = require("./controllers/message/message");
+const {
+  createNewContact,
+  updateContactStatus,
+} = require("./controllers/contacts/contacts");
 const DBConnection = require("./startup/dbConnection");
 const errors = require("./middleware/errors");
 const http = require("http");
@@ -40,5 +45,97 @@ const io = socketio(httpServer, {
 io.on("connection", (socket) => {
   socket.on("join", (roomNo) => {
     socket.join(roomNo);
+  });
+
+  socket.on(
+    "message",
+    async ({ contactId, senderId, recieverId, message, read }) => {
+      if (contactId) {
+        const result = await createNewMessage(
+          contactId,
+          senderId,
+          recieverId,
+          message,
+          read
+        );
+        io.sockets.in(contactId).emit("message", {
+          contactId,
+          senderId,
+          recieverId,
+          message,
+          read,
+          messageId: result._id,
+        });
+        updateContactStatus(contactId);
+      } else {
+        const { newContactCreated, newContactId, contactResult } =
+          await createNewContact(senderId, recieverId);
+
+        socket.join(newContactId);
+
+        if (newContactCreated) {
+          const result = await createNewMessage(
+            newContactId,
+            senderId,
+            recieverId,
+            message,
+            read
+          );
+          io.sockets.to(recieverId).to(senderId).emit("new-contact", {
+            _id: newContactId,
+            senderId,
+            contactResult,
+            message,
+          });
+          io.sockets.in(newContactId).emit("message", {
+            contactId: newContactId,
+            senderId,
+            recieverId,
+            message,
+            messageId: result._id,
+          });
+          updateContactStatus(newContactId);
+        } else {
+          const result = await createNewMessage(
+            newContactId,
+            senderId,
+            recieverId,
+            message,
+            read
+          );
+          io.sockets.in(newContactId).emit("message", {
+            contactId: newContactId,
+            senderId,
+            recieverId,
+            message,
+            messageId: result._id,
+          });
+          updateContactStatus(newContactId);
+        }
+      }
+    }
+  );
+
+  socket.on("stream-inform-event", ({ hostId, hostName, guestId }) => {
+    io.sockets.in(guestId).emit("stream-inform-event", {
+      hostId,
+      hostName,
+    });
+  });
+
+  socket.on("call-accepted", (hostId, guestId) => {
+    socket.to(hostId).emit("call-accepted", hostId, guestId);
+  });
+
+  socket.on("candidate", (hostId, guestId, message) => {
+    socket.to(guestId).emit("candidate", hostId, message);
+  });
+
+  socket.on("webrtc-offer", (hostId, guestId, message) => {
+    socket.to(guestId).emit("webrtc-offer", hostId, message);
+  });
+
+  socket.on("webrtc-answer", (broadcasterId, watcherId, message) => {
+    socket.to(broadcasterId).emit("answer", watcherId, message);
   });
 });

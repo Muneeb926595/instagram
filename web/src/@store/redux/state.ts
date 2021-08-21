@@ -18,6 +18,8 @@ declare global {
   interface ModalsState {
     addPostModal: any;
     commentsModal: any;
+    addNewContact: any;
+    newCallAlert: any;
   }
   interface CommentState {
     comment: Comment;
@@ -44,6 +46,11 @@ declare global {
   interface LikeState {
     like: Like;
     favourite: Favourite;
+    loading?: boolean;
+  }
+  interface MessagesState {
+    contacts: any[];
+    messages: any[];
     loading?: boolean;
   }
   interface UserProfileState {

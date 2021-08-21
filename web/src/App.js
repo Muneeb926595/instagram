@@ -4,7 +4,16 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { Suspense } from "react";
 
 import Layout from "./@layouts/Layout";
-import { Signup, Login, Home, Igtv, Profile, Saved, Modals } from "@modules";
+import {
+  Signup,
+  Login,
+  Home,
+  Igtv,
+  Profile,
+  Saved,
+  Modals,
+  Messenger,
+} from "@modules";
 import "./App.css";
 
 function App() {
@@ -23,6 +32,7 @@ function App() {
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/igtv" component={Igtv} />
               <Route exact path="/saved" component={Saved} />
+              <Route exact path="/messenger" component={Messenger} />
               <Modals />
             </Layout>
           </Switch>
