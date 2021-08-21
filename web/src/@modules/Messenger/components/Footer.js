@@ -34,7 +34,7 @@ const Footer = ({ otherUserData }) => {
 
   return (
     <div
-      className="flex items-center bg-white w-full h-20 px-12 py-6 border-l border-gray-200 border-solid"
+      className="flex items-center bg-white w-full h-20 px-12 mt-4 py-6 border-l border-gray-200 border-solid"
       style={{ boxShadow: "rgb(244 244 244) 0px -4px 14px" }}
     >
       {(otherUserData?.recieverId || otherUserData?.contactId) && (

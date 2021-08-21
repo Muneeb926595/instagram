@@ -31,10 +31,7 @@ const Center = ({ otherUserData }) => {
   }, [otherUserData, dispatch]);
 
   return (
-    <div
-      className="w-full h-full flex flex-col overflow-scroll overflow-x-hidden no-scrollbar"
-      style={{ backgroundImage: `url(${bg})` }}
-    >
+    <div className="w-full h-full flex flex-col overflow-scroll overflow-x-hidden no-scrollbar">
       <div className="w-full h-full flex flex-col">
         {messages?.length > 0 &&
           messages.map((item, index) => (
