@@ -55,7 +55,7 @@ const Contact = ({ item, index, read, messageSenderId }) => {
               read !== "undefined" &&
               !read &&
               messageSenderId !== localStorage.getItem("userId") && (
-                <div className="flex items-center justify-center rounded-full h-2 w-2 bg-green-400 self-end ">
+                <div className="flex items-center justify-center rounded-full h-2 w-2 bg-pink-600 self-end ">
                   {/* <p className="text-xs font-sans font-light text-white">4</p> */}
                 </div>
               )}

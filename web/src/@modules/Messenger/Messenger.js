@@ -62,7 +62,7 @@ const Messenger = () => {
         alignItems: "center",
       }}
     >
-      <div style={{ flex: "0.35", height: "100%" }}>
+      <div style={{ flex: "0.5", height: "100%" }}>
         <Contacts />
       </div>
       <div
