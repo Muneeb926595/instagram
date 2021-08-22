@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { Avatar } from "@components";
 import { getLastPostDuration } from "@helpers/timeDateUtils";
 
-const SingleMessage = ({ item, index, isOwner, islastMessage }) => {
+const SingleMessage = ({ item, index, isOwner, islastMessage, userImage }) => {
   const lastMessageRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({ smooth: true });
@@ -27,7 +27,7 @@ const SingleMessage = ({ item, index, isOwner, islastMessage }) => {
             </p>
           </div>
           <div>
-            <Avatar size="44" noCircle />
+            <Avatar size="44" noCircle uri={userImage} />
           </div>
         </div>
       ) : (
@@ -37,7 +37,7 @@ const SingleMessage = ({ item, index, isOwner, islastMessage }) => {
           className="flex w-auto px-8 mb-6 mt-4"
         >
           <div>
-            <Avatar size="44" noCircle />
+            <Avatar size="44" noCircle uri={userImage} />
           </div>
           <div className="flex flex-col w-auto ml-4">
             <div className="w-auto bg-gray-100 px-4 py-3 rounded-tr-xl rounded-br-xl rounded-bl-xl mb-2">
