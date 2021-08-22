@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { HeaderSearch, Icon, Clickable } from "@components";
+import { HeaderSearch, Icon, NotificationsModal, Clickable } from "@components";
 import { setShowAddPostModal } from "@store/modals/ModalsActions";
 
 const AppHeader = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
+
+  const unreadNotificationsCount = useSelector(
+    ({ Foodbook }) => Foodbook.notifications.unreadNotificationsCount
+  );
 
   const handleOpenAddPostModal = () => {
     dispatch(setShowAddPostModal({ isVisible: true, modalPayload: {} }));
   };
-
   return (
     <div className="flex flex-row items-center bg-white justify-between ">
       <HeaderSearch />
@@ -20,7 +24,31 @@ const AppHeader = () => {
         <Clickable onClick={() => history.push("/messenger")}>
           <Icon type="messenger" marg="0 0.8rem 0 0" size="24px" />
         </Clickable>
-        <Icon type="notifications" marg="0  1.4rem 0 0.8rem" size="24px" />
+        <div style={{ position: "relative" }}>
+          <Clickable onClick={() => setShowNotificationModal(true)}>
+            <Icon type="notifications" marg="0  1.4rem 0 0.8rem" size="24px" />
+          </Clickable>
+          {unreadNotificationsCount ? (
+            <div
+              className="bg-pink-600"
+              style={{
+                width: "10px",
+                height: "10px",
+                position: "absolute",
+                borderRadius: "100px",
+                left: "50%",
+                top: "-30%",
+              }}
+            ></div>
+          ) : (
+            ""
+          )}
+          {showNotificationModal && (
+            <NotificationsModal
+              closeModal={() => setShowNotificationModal(false)}
+            />
+          )}
+        </div>
         <button
           onClick={handleOpenAddPostModal}
           className="flex flex-row items-center px-3 py-2 rounded-lg"

@@ -11,6 +11,7 @@ import bg from "assets/icons/bg.png";
 const Center = ({ otherUserData }) => {
   const dispatch = useDispatch();
   const messages = useSelector(({ Foodbook }) => Foodbook.message.messages);
+  const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
 
   useEffect(() => {
     if (otherUserData?.recieverId && otherUserData?.contactId) {
@@ -37,6 +38,11 @@ const Center = ({ otherUserData }) => {
           messages.map((item, index) => (
             <SingleMessage
               item={item}
+              userImage={
+                item?.senderId === localStorage.getItem("userId")
+                  ? userData?.image
+                  : otherUserData?.image
+              }
               index={"Abc" + index}
               islastMessage={index === messages?.length - 1}
               isOwner={item?.senderId === localStorage.getItem("userId")}
