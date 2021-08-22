@@ -6,7 +6,7 @@
   "host": "http://localhost",
   "DataBase_Name": "instagram",
   "mongoDb": {
-    "uri": "mongodb://localhost/instagram",
+    "uri": "mongodb+srv://instagram:5vv04JUpoMxRxGcY@cluster0.yv7jr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     "port": "27017",
     "username": "username",
     "password": "password db"
