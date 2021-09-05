@@ -157,10 +157,15 @@ function PostImage(props) {
               {mediaFiles.map((file, idx) => {
                 return (
                   <div className={classes.carousel_div} key={file + idx}>
-                    {file?.includes("images/") ? (
+                    {file?.includes("jpg") ||
+                    file?.includes("jpeg") ||
+                    file?.includes("png") ||
+                    file?.includes("gif") ? (
                       <img
                         src={
-                          formateImageUrl(file)
+                          file?.includes("https")
+                            ? file
+                            : formateImageUrl(file)
                             ? formateImageUrl(file)
                             : postPlaceHolder
                         }
@@ -181,7 +186,11 @@ function PostImage(props) {
                           ref={vidRef}
                         >
                           <source
-                            src={formateVideoUrl(file)}
+                            src={
+                              file?.includes("https")
+                                ? file
+                                : formateVideoUrl(file)
+                            }
                             type="video/mp4"
                           />
                         </video>
@@ -206,7 +215,14 @@ function PostImage(props) {
               className={classes.postVideo}
               ref={vidRef}
             >
-              <source src={formateVideoUrl(mediaFiles)} type="video/mp4" />
+              <source
+                src={
+                  mediaFiles.includes("https")
+                    ? mediaFiles
+                    : formateVideoUrl(mediaFiles)
+                }
+                type="video/mp4"
+              />
             </video>
           </div>
         )

@@ -60,6 +60,9 @@ export const createPost = (post: Post) => {
         Object.keys(post["imageFile"]).map((v) => {
           formData.append(key, post[key][v], post["imageFile"][v].name);
         });
+      } else if (key === "mediaFiles") {
+        const mediaData = JSON.stringify(post.mediaFiles);
+        formData.append("mediaFiles", mediaData);
       } else {
         formData.append(key, post[key]);
       }

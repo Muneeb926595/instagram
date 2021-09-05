@@ -1,16 +1,20 @@
+import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 
-import { CustomModal, Icon } from "@components";
+import { CustomModal, Icon, Loader } from "@components";
+import firebase from "@helpers/push-notifications";
+import { createPost } from "@store/post/PostActions";
 import { lighterImage } from "@helpers/imageCompression";
 import { setShowAddPostModal } from "@store/modals/ModalsActions";
-import { createPost } from "@store/post/PostActions";
+
+const storage = firebase.storage();
 
 const AddPostModal = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [firebaseUpload, setFirebaseUpload] = useState(false);
   const [files, setFiles] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -62,16 +66,27 @@ const AddPostModal = () => {
   };
 
   const handleSubmitPost = async () => {
+    setFirebaseUpload(true);
     for (let i = 0; i < files.length; i++) {
       if (isImage(files[i].type)) {
         let newfile = await lighterImage(files[i]);
         files[i] = newfile;
       }
     }
+    const imageUrls = [];
+    for (let i = 0; i < files.length; i++) {
+      const time = new Date().toISOString().replace(/:/g, " ");
+      const uploadTaskSnapshot = await storage
+        .ref(`images/${time}-${files[i].name}`)
+        .put(files[i]);
+      const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL();
+      imageUrls.push(downloadURL);
+    }
+    setFirebaseUpload(false);
     dispatch(
       createPost({
         userId: localStorage.getItem("userId"),
-        imageFile: files,
+        mediaFiles: imageUrls,
         history: history,
       })
     );
@@ -93,94 +108,100 @@ const AddPostModal = () => {
             <Icon type="cancel" size="24px" />
           </div>
         </div>
-        <div className="flex flex-row items-center mt-6">
-          {files?.length > 0 ? (
-            <div className="flex flex-row overflow-scroll overflow-y-hidden no-scrollbar">
-              {files?.length > 0 &&
-                files.map((image) => (
-                  <div className="flex flex-row flex-wrap relative mr-2 p-2">
-                    <div style={{ width: "80px", height: "80px" }}>
-                      {isVideo(image && image.type) ? (
-                        <video width="100%" height="100%" controls>
-                          <source
-                            src={URL.createObjectURL(image)}
-                            type="video/mp4"
-                          />
-                        </video>
-                      ) : (
-                        <img
-                          alt="recipeImage"
-                          src={URL.createObjectURL(image)}
+        {firebaseUpload ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="flex flex-row items-center mt-6">
+              {files?.length > 0 ? (
+                <div className="flex flex-row overflow-scroll overflow-y-hidden no-scrollbar">
+                  {files?.length > 0 &&
+                    files.map((image) => (
+                      <div className="flex flex-row flex-wrap relative mr-2 p-2">
+                        <div style={{ width: "80px", height: "80px" }}>
+                          {isVideo(image && image.type) ? (
+                            <video width="100%" height="100%" controls>
+                              <source
+                                src={URL.createObjectURL(image)}
+                                type="video/mp4"
+                              />
+                            </video>
+                          ) : (
+                            <img
+                              alt="recipeImage"
+                              src={URL.createObjectURL(image)}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                borderRadius: "16px",
+                                objectFit: "cover",
+                              }}
+                            />
+                          )}
+                        </div>{" "}
+                        <div
                           style={{
-                            width: "100%",
-                            height: "100%",
-                            borderRadius: "16px",
-                            objectFit: "cover",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                            cursor: "pointer",
                           }}
-                        />
-                      )}
-                    </div>{" "}
+                          onClick={() => {
+                            if (image) {
+                              let newarr = files.filter(
+                                (rm) => rm.name !== image.name
+                              );
+                              setFiles(newarr);
+                            }
+                          }}
+                        >
+                          <Icon type="red-cancel" size="18" />
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              ) : (
+                <>
+                  <input
+                    type="file"
+                    id="uploadImages"
+                    accept="image/*,video/mp4,video/x-m4v,video/*"
+                    style={{ display: "none" }}
+                    value={""}
+                    multiple={true}
+                    onChange={uploadFile}
+                  />
+                  <label htmlFor="uploadImages">
                     <div
+                      className=" flex flex-col justify-center items-center rounded-lg mr-6 flex-shrink-0 flex-grow flex-nowrap border-2 border-gray-300 cursor-pointer "
                       style={{
-                        position: "absolute",
-                        top: "0",
-                        right: "0",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        if (image) {
-                          let newarr = files.filter(
-                            (rm) => rm.name !== image.name
-                          );
-                          setFiles(newarr);
-                        }
+                        maxWidth: "9rem",
+                        minWidth: "9rem",
+                        height: "18vh",
                       }}
                     >
-                      <Icon type="red-cancel" size="18" />
+                      <Icon type="add-images" size="40px" />
+                      <p className=" font-bold font-sans text-gray-400 text-sm mt-8">
+                        Add Images
+                      </p>
                     </div>
-                  </div>
-                ))}
+                  </label>
+                </>
+              )}
             </div>
-          ) : (
-            <>
-              <input
-                type="file"
-                id="uploadImages"
-                accept="image/*,video/mp4,video/x-m4v,video/*"
-                style={{ display: "none" }}
-                value={""}
-                multiple={true}
-                onChange={uploadFile}
-              />
-              <label htmlFor="uploadImages">
-                <div
-                  className=" flex flex-col justify-center items-center rounded-lg mr-6 flex-shrink-0 flex-grow flex-nowrap border-2 border-gray-300 cursor-pointer "
-                  style={{
-                    maxWidth: "9rem",
-                    minWidth: "9rem",
-                    height: "18vh",
-                  }}
-                >
-                  <Icon type="add-images" size="40px" />
-                  <p className=" font-bold font-sans text-gray-400 text-sm mt-8">
-                    Add Images
-                  </p>
-                </div>
-              </label>
-            </>
-          )}
-        </div>
-        <buton
-          onClick={isDisabled ? null : handleSubmitPost}
-          className="cursor-pointer mt-6 py-2 px-32 rounded-3xl text-white  text-lg font-sans font-semibold "
-          style={{
-            background: isDisabled
-              ? "gray"
-              : "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
-          }}
-        >
-          Post
-        </buton>
+            <buton
+              onClick={isDisabled ? null : handleSubmitPost}
+              className="cursor-pointer mt-6 py-2 px-32 rounded-3xl text-white  text-lg font-sans font-semibold "
+              style={{
+                background: isDisabled
+                  ? "gray"
+                  : "linear-gradient(140deg, rgba(228, 62, 104, 1) 0%,  rgba(250, 164, 73, 1) 100%)",
+              }}
+            >
+              Post
+            </buton>
+          </>
+        )}
       </div>
     </CustomModal>
   );

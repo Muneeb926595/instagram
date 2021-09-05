@@ -131,26 +131,12 @@ exports.getAllPosts = async (req, res, next) => {
 };
 
 exports.addPost = async (req, res, next) => {
-  const { userId } = req.body;
+  const { userId, mediaFiles } = req.body;
 
   let post = new Post({
     userId,
+    mediaFiles: JSON.parse(mediaFiles),
   });
-
-  if (req.files) {
-    let mediaFiles = [];
-    req.files.forEach((file) => {
-      const { destination, filename } = file;
-      if (isImage(file.mimetype)) {
-        mediaFiles.push(utils.createImageUrl(destination, filename));
-      } else if (isVideo(file.mimetype)) {
-        mediaFiles.push(utils.createVideoUrl(destination, filename));
-      }
-    });
-    if (mediaFiles.length > 0) {
-      post.mediaFiles = mediaFiles;
-    }
-  }
 
   const result = await post.save();
   return res.status(200).send(result);

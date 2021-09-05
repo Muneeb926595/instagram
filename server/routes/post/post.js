@@ -40,7 +40,7 @@ const upload = multer({
   },
 });
 
-router.post("/post", auth, upload.array("imageFile"), postController.addPost);
+router.post("/post", auth, upload.single("imageFile"), postController.addPost);
 router.get("/post/userPosts/:id", auth, postController.getUserPosts);
 router.get("/post", auth, postController.getAllPosts);
 
