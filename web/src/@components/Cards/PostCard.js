@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Avatar, Icon, PostImage, Clickable } from "@components";
+import { useMobile } from "@customeHooks";
 import { likePost, addToFavourite } from "@store/like/LikeActions";
 import { setShowCommentsModal } from "@store/modals/ModalsActions";
 import {
@@ -16,6 +17,8 @@ const PostCard = ({ postData, screenName }) => {
   const [like, setLike] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
   const [likeCounts, setLikeCounts] = useState(0);
+
+  const [isMobile] = useMobile();
 
   const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
 
@@ -86,7 +89,9 @@ const PostCard = ({ postData, screenName }) => {
   return (
     <div
       className="flex flex-col mb-4"
-      style={{ flexBasis: screenName === "Profile" ? "45%" : "31%" }}
+      style={{
+        flexBasis: isMobile ? "100%" : screenName === "Profile" ? "45%" : "31%",
+      }}
     >
       <div
         className="rounded-lg cursor-pointer "

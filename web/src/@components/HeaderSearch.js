@@ -3,12 +3,15 @@ import { debounce } from "debounce";
 import { useDispatch } from "react-redux";
 
 import { Icon, SearchResult } from "@components";
+import { useMobile } from "@customeHooks";
 import { searchUser } from "@store/search/SearchActions";
 
 const Search = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [searchText, setSearchText] = useState("");
+
+  const [isMobile] = useMobile();
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -26,7 +29,9 @@ const Search = () => {
   return (
     <>
       <form
-        className="flex flex-row items-center px-4  rounded-lg bg-gray-100"
+        className={` ${
+          isMobile && "mr-8"
+        } flex flex-row items-center px-4  rounded-lg bg-gray-100`}
         style={{ position: "relative" }}
         onClick={() => setShowModal(true)}
       >

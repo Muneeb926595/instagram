@@ -14,7 +14,7 @@ import {
   VALIDATOR_NO_SPACE,
   VALIDATOR_CONFIRM_PASSWORD,
 } from "@helpers/validators";
-import { useForm } from "@customeHooks";
+import { useForm, useMobile } from "@customeHooks";
 import { Input } from "@components";
 import { submitRegister } from "@store/auth/AuthActions";
 
@@ -42,6 +42,8 @@ const Signup = () => {
     },
     false
   );
+
+  const [isMobile] = useMobile();
 
   const handleGoogleLogin = () => {
     const auth = firebase.auth();
@@ -85,8 +87,17 @@ const Signup = () => {
           "linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d)",
       }}
     >
-      <div className="w-3/4 h-3/4 flex rounded-lg bg-white">
-        <div className="w-2/4 h-full border-2 rounded-lg">
+      <div
+        className={`${isMobile ? "w-4/5" : "w-3/4"} ${
+          isMobile ? "h-4/5" : "h-3/4"
+        } ${isMobile ? "flex-col" : "flex"} rounded-lg bg-white no-scrollbar`}
+        style={{ overflow: "auto" }}
+      >
+        <div
+          className={`${isMobile ? "w-full" : "w-2/4"} ${
+            isMobile ? "h-2/5" : "h-full"
+          } border-2 rounded-lg`}
+        >
           <img
             src={loginBg}
             alt="loginBg"
@@ -98,22 +109,33 @@ const Signup = () => {
             }}
           />
         </div>
-        <div className="w-2/4 h-full flex flex-col justify-center items-center">
+        <div
+          className={`${isMobile ? "w-full" : "w-2/4"} ${
+            isMobile ? "h-3/5" : "h-full"
+          } flex flex-col justify-center items-center`}
+        >
           <p
-            className="font-bold font-sans mb-4 text-center w-2/4 text-gray-700"
-            style={{ fontSize: "28px", lineHeight: "40px" }}
+            className={`font-bold font-sans ${
+              isMobile ? "mt-1" : "mb-4"
+            } text-center ${isMobile ? "w-full" : "w-2/4"} text-gray-700`}
+            style={{
+              fontSize: isMobile ? "12px" : "28px",
+              lineHeight: isMobile ? "10px" : "40px",
+            }}
           >
             Signup to see photos and videos from your friends.
           </p>
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className={`bg-gradient-to-r from-white-400 to-white-500 flex shadow-2xl justify-center items-center my-4 w-1/3 rounded-full px-4 py-2  font-sans font-medium text-black border-2 border-purple-500 border-solid hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:border-0 hover:text-white `}
+            className={`bg-gradient-to-r from-white-400 to-white-500 flex shadow-2xl justify-center items-center my-4 ${
+              isMobile ? "w-4/5" : "w-1/3"
+            } rounded-full px-4 py-2  font-sans font-medium text-black border-2 border-purple-500 border-solid hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:border-0 hover:text-white `}
           >
             <Icon type="google" size="20px" marg="0 1rem 0 0" />
             Login With Google
           </button>
-          <div className="w-2/4 mt-4">
+          <div className={` ${isMobile ? "w-4/5" : "w-2/4"} mt-4`}>
             <Input
               inputName="UserName"
               id="userName"
@@ -130,7 +152,7 @@ const Signup = () => {
               required={true}
             />
           </div>
-          <div className="w-2/4 mt-4">
+          <div className={` ${isMobile ? "w-4/5" : "w-2/4"} mt-4`}>
             <Input
               width="large"
               id="email"
@@ -143,7 +165,7 @@ const Signup = () => {
               helperText={"Email is invalid!"}
             />
           </div>
-          <div className="w-2/4 mt-4">
+          <div className={` ${isMobile ? "w-4/5" : "w-2/4"} mt-4`}>
             <Input
               width="large"
               id="password"
@@ -154,7 +176,7 @@ const Signup = () => {
               helperText={"Minimum length 6 required!"}
             />
           </div>
-          <div className="w-2/4 mt-4">
+          <div className={` ${isMobile ? "w-4/5" : "w-2/4"} mt-4`}>
             <Input
               width="large"
               id="confirmPassword"

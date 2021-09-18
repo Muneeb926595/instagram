@@ -20,6 +20,7 @@ import {
   addPostLikeLocally,
   removePostLikeLocally,
 } from "@store/post/PostActions";
+import { useMobile } from "@customeHooks";
 
 const useStyles = makeStyles((theme) => ({
   commentspage: {
@@ -147,6 +148,9 @@ const useStyles = makeStyles((theme) => ({
 const CommentsModal = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const [isMobile] = useMobile();
+
   const [like, setLike] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
 
