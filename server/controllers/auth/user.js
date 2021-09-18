@@ -230,3 +230,14 @@ exports.getUserById = async (req, res, next) => {
     alreadyFollowing: alreadyFollowing,
   });
 };
+
+exports.updateuserImage = async (req, res, next) => {
+  const id = req.params.id;
+  const { image } = req.body;
+  const client = {
+    image,
+  };
+  const updatedUser = await User.findByIdAndUpdate(id, client);
+
+  return res.status(200).send(updatedUser);
+};

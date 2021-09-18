@@ -13,6 +13,7 @@ export const icons = {
   attachment: require("./icons/attachment.png"),
   plus: require("./icons/plus.png"),
   back: require("./icons/back.png"),
+  knife: require("./icons/knife.png"),
   profile: require("./icons/profile.png"),
   explore: require("./icons/explore.png"),
   settings: require("./icons/settings.png"),
