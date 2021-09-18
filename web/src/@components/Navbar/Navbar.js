@@ -1,14 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { Icon, Avatar, CustomModal, StoriesScreen } from "@components";
+import {
+  Icon,
+  Avatar,
+  CustomModal,
+  StoriesScreen,
+  Clickable,
+} from "@components";
 import { getLastPostDuration } from "@helpers/timeDateUtils";
+import { updateUserImage } from "@store/auth/AuthActions";
+import firebase from "@helpers/push-notifications";
 import { formateImageUrl } from "@helpers/formateImageUrl";
 import userPlaceholder from "assets/icons/user-placeholder.png";
+import { lighterImage } from "@helpers/imageCompression";
+
+const storage = firebase.storage();
 
 const Navbar = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const inputFileRef = useRef();
   const [showStoriesModal, setShowStoriesModal] = useState(false);
   const [filteredStories, setFilteredStories] = useState();
   const [userImageHasHttp, setUserImageHasHttp] = useState(false);
@@ -136,6 +150,35 @@ const Navbar = () => {
         break;
     }
   };
+
+  const isImage = (type) => {
+    const mimeTypes = ["image/gif", "image/jpeg", "image/png"];
+    return mimeTypes.includes(type);
+  };
+
+  const handleChangeProfilePic = () => {
+    inputFileRef.current.click();
+  };
+
+  const onChangeFile = async (event) => {
+    let pickedFiles = event.target.files[0];
+    if (isImage(pickedFiles.type)) {
+      let newfile = await lighterImage(pickedFiles);
+      pickedFiles = newfile;
+    }
+    const time = new Date().toISOString().replace(/:/g, " ");
+    const uploadTaskSnapshot = await storage
+      .ref(`images/${time}-${pickedFiles.name}`)
+      .put(pickedFiles);
+    const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL();
+    dispatch(
+      updateUserImage({
+        image: downloadURL,
+        userId: localStorage.getItem("userId"),
+      })
+    );
+  };
+
   return (
     <div
       className="flex flex-col py-8 h-screen bg-gray-100 w-1/6"
@@ -149,10 +192,7 @@ const Navbar = () => {
         <Icon type="instagram" width="auto" height="auto" marg="4px 0 0 0" />
       </div>
 
-      <div
-        className="flex flex-col items-center mt-8 cursor-pointer "
-        onClick={() => setShowStoriesModal(true)}
-      >
+      <div className="flex flex-col items-center mt-8">
         {showStoryCircle && (
           <div
             style={{
@@ -165,7 +205,30 @@ const Navbar = () => {
             }}
           ></div>
         )}
-        <Avatar uri={userData?.user?.image} profile size="130" />
+        <div style={{ position: "relative", cursor: "pointer" }}>
+          <div onClick={() => setShowStoriesModal(true)}>
+            <Avatar uri={userData?.user?.image} profile size="130" />
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "0",
+              right: "0",
+            }}
+          >
+            <input
+              type="file"
+              id="file"
+              ref={inputFileRef}
+              style={{ display: "none" }}
+              onChange={onChangeFile}
+            />
+            <Clickable pad="12px" onClick={handleChangeProfilePic}>
+              <Icon type="knife" size="24px" />
+            </Clickable>
+          </div>
+        </div>
+
         <p className="text-gray-700 font-sans font-bold text-lg mt-4">
           {userData?.user?.userName}
         </p>

@@ -95,6 +95,13 @@ const AuthReducer = (
         loading: false,
       };
     }
+    case AuthActionTypes.UPDATE_USER_IMAGE_SUCCESS: {
+      return {
+        ...state,
+        user: { ...state.user, image: action.payload },
+        loading: false,
+      };
+    }
     default: {
       return state;
     }

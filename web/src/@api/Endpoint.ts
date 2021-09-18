@@ -11,6 +11,9 @@ export const getSocialLoginUrl = () => {
 export const getUserByIdUrl = (id, userId) => {
   return encodeURI("auth/user/" + id + "/" + userId);
 };
+export const updateUserImageUrl = (id) => {
+  return encodeURI("auth/updateuserImage/" + id);
+};
 export const getUserPostUrl = (id, page, limit, userId) => {
   return encodeURI(
     "post/userPosts/" +

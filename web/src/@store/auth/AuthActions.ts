@@ -4,6 +4,7 @@ import {
   registerUserUrl,
   getSocialLoginUrl,
   getUserByIdUrl,
+  updateUserImageUrl,
 } from "@api/Endpoint";
 import { axiosInstance as axios } from "@api/axios";
 import { AuthActionTypes } from "../redux/actionTypes";
@@ -221,4 +222,43 @@ export const upateUserPostCount = () => {
       type: AuthActionTypes.UPDATE_USER_POST_COUNT,
     });
   };
+};
+
+export const updateUserImage = (user) => {
+  return (dispatch) => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_IMAGE_START,
+    });
+
+    const url = updateUserImageUrl(user.userId);
+    axios
+      .put(url, user)
+      .then((res) => {
+        let { data } = res;
+        if (data) {
+          updateUserImageSuccess(dispatch, data, user.image);
+        } else {
+          updateUserImageFail(dispatch, "There was an error connection");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        updateUserImageFail(dispatch, "There was an error connection2");
+      });
+  };
+};
+const updateUserImageFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: AuthActionTypes.UPDATE_USER_IMAGE_FAIL,
+    payload: {
+      errorMessage,
+    },
+  });
+};
+const updateUserImageSuccess = (dispatch, data, userImage) => {
+  dispatch({
+    type: AuthActionTypes.UPDATE_USER_IMAGE_SUCCESS,
+    payload: userImage,
+  });
 };

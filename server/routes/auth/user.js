@@ -46,4 +46,5 @@ router.post(
   upload.single("imageFile"),
   authController.socialLogin
 );
+router.put("/auth/updateuserImage/:id", auth, authController.updateuserImage);
 module.exports = router;
