@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@store/auth/AuthActions";
 import { socket } from "@helpers/sockets";
 import { Navbar } from "@components";
+import { useMobile } from "@customeHooks";
 
 const Layout = (props) => {
   const dispatch = useDispatch();
   const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
+
+  const [isMobile] = useMobile();
 
   //get user data if not available in redux
   useEffect(() => {
@@ -37,10 +40,12 @@ const Layout = (props) => {
       className="w-screen h-screen flex items-center"
       style={{ maxWidth: "98vw" }}
     >
-      <div className="w-1/5 h-full">
-        <Navbar />
+      <div className={`${isMobile ? "p-2" : "w-1/5"} h-full`}>
+        {!isMobile && <Navbar />}
       </div>
-      <div className=" w-4/5 h-full mr-2 ">{props.children}</div>
+      <div className={`${isMobile ? "w-full" : "w-4/5"} h-full mr-2 `}>
+        {props.children}
+      </div>
     </div>
   );
 };

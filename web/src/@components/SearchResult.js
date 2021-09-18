@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useOutsideClick } from "@customeHooks";
+import { useOutsideClick, useMobile } from "@customeHooks";
 import { Avatar, Clickable, Loader } from "@components";
 
 const useStyles = makeStyles(() => ({
@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
 const SearchResult = ({ closeModal }) => {
   const classes = useStyles();
   const history = useHistory();
+
+  const [isMobile] = useMobile();
+
   const wrapperRef = useRef(null);
 
   const { users, loading } = useSelector(({ Foodbook }) => Foodbook.search);
@@ -37,9 +40,9 @@ const SearchResult = ({ closeModal }) => {
       style={{
         zIndex: 1000,
         height: "32vh",
-        width: "20vw",
+        width: isMobile ? "90%" : "20vw",
         top: "10%",
-        left: "19%",
+        left: isMobile ? "4%" : "19%",
         boxShadow: "0px 0px 20px #dbdbdb",
       }}
     >

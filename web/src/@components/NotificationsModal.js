@@ -1,27 +1,28 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useOutsideClick } from "@customeHooks";
+import { useOutsideClick, useMobile } from "@customeHooks";
 import { NotificationListRow, Loader } from "@components";
 
 const useStyles = makeStyles(() => ({
-  triangleUp: {
+  triangleUp: (styleProps) => ({
     position: "absolute",
     top: "-4.2%",
     width: "1px",
     height: "0px",
-    left: "45%",
+    left: styleProps.isMobile ? "92%" : "45%",
     borderLeft: "20px solid transparent",
     borderRight: "20px solid transparent",
     borderBottom: "20px solid #fff",
-  },
+  }),
 }));
 
 const NotificationsModal = ({ closeModal }) => {
-  const classes = useStyles();
-  const history = useHistory();
+  const [isMobile] = useMobile();
+  const styleProps = { isMobile };
+  const classes = useStyles(styleProps);
+
   const wrapperRef = useRef(null);
 
   const { notificationsList, loading } = useSelector(
@@ -39,9 +40,9 @@ const NotificationsModal = ({ closeModal }) => {
       style={{
         zIndex: 1000,
         height: "32vh",
-        width: "20vw",
+        width: isMobile ? "93vw" : "20vw",
         top: "5vh",
-        right: "-8vw",
+        right: isMobile ? "6vw" : "-8vw",
         boxShadow: "0px 0px 20px #dbdbdb",
       }}
     >
