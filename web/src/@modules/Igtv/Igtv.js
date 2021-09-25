@@ -26,7 +26,7 @@ const Igtv = () => {
           alignItems: "center",
         }}
       >
-        <p className="font-sans font-semibold text-6xl text-gray-200 ">
+        <p className="font-sans font-semibold text-6xl text-gray-200 text-center ">
           Comming Soon
         </p>
       </div>

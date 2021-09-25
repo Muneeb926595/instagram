@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getUser } from "@store/auth/AuthActions";
 import { socket } from "@helpers/sockets";
-import { Navbar } from "@components";
+import { Navbar, BottomNavigation } from "@components";
 import { useMobile } from "@customeHooks";
 
 const Layout = (props) => {
@@ -45,6 +45,7 @@ const Layout = (props) => {
       </div>
       <div className={`${isMobile ? "w-full" : "w-4/5"} h-full mr-2 `}>
         {props.children}
+        {isMobile && <BottomNavigation />}
       </div>
     </div>
   );
