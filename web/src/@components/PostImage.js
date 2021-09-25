@@ -157,10 +157,11 @@ function PostImage(props) {
               {mediaFiles.map((file, idx) => {
                 return (
                   <div className={classes.carousel_div} key={file + idx}>
-                    {file?.includes("jpg") ||
-                    file?.includes("jpeg") ||
-                    file?.includes("png") ||
-                    file?.includes("gif") ? (
+                    {file?.includes(".jpg") ||
+                    file?.includes(".jpeg") ||
+                    file?.includes(".png") ||
+                    file?.includes(".jfif") ||
+                    file?.includes(".gif") ? (
                       <img
                         src={
                           file?.includes("https")
