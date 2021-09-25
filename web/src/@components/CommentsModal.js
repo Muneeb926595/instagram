@@ -23,20 +23,22 @@ import {
 import { useMobile } from "@customeHooks";
 
 const useStyles = makeStyles((theme) => ({
-  commentspage: {
+  commentspage: (isMobile) => ({
     margin: "0 auto",
-    maxWidth: "50%",
+    maxWidth: isMobile ? "90vw" : "50%",
     width: "100%",
     display: "flex",
     height: "65%",
+    maxHeight: isMobile && "56vh",
+    flexDirection: isMobile ? "column" : "row",
     justifyContent: "center",
-  },
+  }),
 
-  commentspage__leftPart: {
+  commentspage__leftPart: (isMobile) => ({
     height: "100%",
-    width: "60%",
+    width: isMobile ? "100%" : "60%",
     backgroundColor: "#ffffff",
-  },
+  }),
 
   commentspage__rightPart: {
     flex: "1",
@@ -87,11 +89,11 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  commentSection: {
+  commentSection: (isMobile) => ({
     overflow: "scroll",
     overflowX: "hidden",
     paddingLeft: "12px",
-    maxHeight: "70% !important",
+    maxHeight: isMobile ? "50% !important" : "70% !important",
     paddingTop: "5px",
     borderTop: "1px solid #dbdbdb",
     "&:last-child": {
@@ -104,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "10px",
       boxShadow: "inset 10px 10px 2px #6979f8",
     },
-  },
+  }),
   commentspage__commentsPart: {
     position: "absolute",
     padding: "5px",
@@ -146,10 +148,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CommentsModal = (props) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
   const [isMobile] = useMobile();
+  const classes = useStyles({ isMobile });
+  const dispatch = useDispatch();
 
   const [like, setLike] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
@@ -236,20 +237,22 @@ const CommentsModal = (props) => {
             borderBottomRightRadius: "8px",
           }}
         >
-          <div
-            className="flex items-center p-4"
-            style={{ borderBottom: "1px solid #dbdbdb" }}
-          >
-            <div className={classes.commentspage__userProfileIcon}>
-              <Avatar
-                uri={commentsModal?.modalPayload?.postAuthorImage}
-                size="40px"
-              />
+          {!isMobile && (
+            <div
+              className="flex items-center p-4"
+              style={{ borderBottom: "1px solid #dbdbdb" }}
+            >
+              <div className={classes.commentspage__userProfileIcon}>
+                <Avatar
+                  uri={commentsModal?.modalPayload?.postAuthorImage}
+                  size="40px"
+                />
+              </div>
+              <p className=" font-sans text-lg gradient-text">
+                @{commentsModal?.modalPayload?.otherUserName}
+              </p>
             </div>
-            <p className=" font-sans text-lg gradient-text">
-              @{commentsModal?.modalPayload?.otherUserName}
-            </p>
-          </div>
+          )}
 
           {/* post actions */}
 
