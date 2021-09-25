@@ -67,12 +67,14 @@ const AddPostModal = () => {
 
   const handleSubmitPost = async () => {
     setFirebaseUpload(true);
+    console.log("1st", files);
     for (let i = 0; i < files.length; i++) {
       if (isImage(files[i].type)) {
         let newfile = await lighterImage(files[i]);
         files[i] = newfile;
       }
     }
+    console.log("2nd", files);
     const imageUrls = [];
     for (let i = 0; i < files.length; i++) {
       const time = new Date().toISOString().replace(/:/g, " ");
