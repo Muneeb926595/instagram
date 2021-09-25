@@ -44,6 +44,7 @@ const NotificationsModal = ({ closeModal }) => {
         top: "5vh",
         right: isMobile ? "6vw" : "-8vw",
         boxShadow: "0px 0px 20px #dbdbdb",
+        overflow: "auto",
       }}
     >
       <div className={classes.triangleUp}></div>
