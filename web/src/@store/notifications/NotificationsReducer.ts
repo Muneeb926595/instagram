@@ -18,27 +18,12 @@ const NotificationReducer = (
       return { ...state, loading: true };
     }
     case NotificationsActionTypes.GET_NOTIFICATIONS_SUCCESS: {
-      if (action.payload.notificationCurrentPage === 1) {
-        state.notificationsList = [];
-        return {
-          ...state,
-          unreadNotificationsCount: action.payload.unreadNotificationsCount,
-          notificationsList: action.payload.notifications,
-          loading: false,
-        };
-      } else {
-        return {
-          ...state,
-          unreadNotificationsCount:
-            parseInt(state.unreadNotificationsCount) +
-            parseInt(action.payload.unreadNotificationsCount),
-          notificationsList: [
-            ...state.notificationsList,
-            ...action.payload.notifications,
-          ],
-          loading: false,
-        };
-      }
+      return {
+        ...state,
+        unreadNotificationsCount: action.payload.unreadNotificationsCount,
+        notificationsList: action.payload.notifications,
+        loading: false,
+      };
     }
     case NotificationsActionTypes.GET_NOTIFICATIONS_FAIL: {
       return {
