@@ -23,20 +23,20 @@ import {
 import { useMobile } from "@customeHooks";
 
 const useStyles = makeStyles((theme) => ({
-  commentspage: (isMobile) => ({
+  commentspage: (styleProps) => ({
     margin: "0 auto",
-    maxWidth: isMobile ? "90vw" : "50%",
+    maxWidth: styleProps.isMobile ? "90vw" : "50%",
     width: "100%",
     display: "flex",
     height: "65%",
-    maxHeight: isMobile && "56vh",
-    flexDirection: isMobile ? "column" : "row",
+    maxHeight: styleProps.isMobile && "56vh",
+    flexDirection: styleProps.isMobile ? "column" : "row",
     justifyContent: "center",
   }),
 
-  commentspage__leftPart: (isMobile) => ({
+  commentspage__leftPart: (styleProps) => ({
     height: "100%",
-    width: isMobile ? "100%" : "60%",
+    width: styleProps.isMobile ? "100%" : "60%",
     backgroundColor: "#ffffff",
   }),
 
@@ -89,11 +89,11 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  commentSection: (isMobile) => ({
+  commentSection: (styleProps) => ({
     overflow: "scroll",
     overflowX: "hidden",
     paddingLeft: "12px",
-    maxHeight: isMobile ? "50% !important" : "70% !important",
+    maxHeight: styleProps.isMobile ? "50% !important" : "70% !important",
     paddingTop: "5px",
     borderTop: "1px solid #dbdbdb",
     "&:last-child": {
@@ -149,7 +149,12 @@ const useStyles = makeStyles((theme) => ({
 
 const CommentsModal = (props) => {
   const [isMobile] = useMobile();
-  const classes = useStyles({ isMobile });
+
+  const styleProps = {
+    isMobile: isMobile,
+  };
+
+  const classes = useStyles(styleProps);
   const dispatch = useDispatch();
 
   const [like, setLike] = useState(false);
