@@ -13,6 +13,7 @@ export { default as AddPostModal } from "./AddPostModal";
 export { default as NotificationListRow } from "./NotificationListRow";
 export { default as CustomModal } from "./CustomModal";
 export { default as PostImage } from "./PostImage";
+export { default as BottomNavigation } from "./BottomNavigation";
 export { default as AddNewContact } from "./AddNewContact";
 export { default as NewCallAlert } from "./NewCallAlert";
 export { default as Search } from "./Search";

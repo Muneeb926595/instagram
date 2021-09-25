@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getUser } from "@store/auth/AuthActions";
 import { socket } from "@helpers/sockets";
-import { Navbar } from "@components";
+import { Navbar, BottomNavigation } from "@components";
 import { useMobile } from "@customeHooks";
 
 const Layout = (props) => {
@@ -38,13 +38,14 @@ const Layout = (props) => {
   return (
     <div
       className="w-screen h-screen flex items-center"
-      style={{ maxWidth: "98vw" }}
+      style={{ maxWidth: isMobile ? "100vw" : "98vw" }}
     >
-      <div className={`${isMobile ? "p-2" : "w-1/5"} h-full`}>
+      <div className={`${isMobile ? "ml-2" : "w-1/5"} h-full`}>
         {!isMobile && <Navbar />}
       </div>
-      <div className={`${isMobile ? "w-full" : "w-4/5"} h-full mr-2 `}>
+      <div className={`${isMobile ? "w-full" : "w-4/5 mr-2"} h-full `}>
         {props.children}
+        {isMobile && <BottomNavigation />}
       </div>
     </div>
   );

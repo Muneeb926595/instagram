@@ -5,12 +5,15 @@ import {
   getUserProfile,
   getUserPosts,
 } from "@store/userProfile/UserProfileActions";
+import { useMobile } from "@customeHooks";
 import { ProfileInfo, ProfilePosts } from "./components";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
   const { userId } = (props.location && props.location.state) || {};
   const [otherUser, setOtherUser] = useState(false);
+
+  const [isMobile] = useMobile();
 
   const otherUserData = useSelector(({ Foodbook }) => Foodbook.userProfile);
   const userData = useSelector(({ Foodbook }) => Foodbook.auth);
@@ -32,8 +35,10 @@ const Profile = (props) => {
   }, [otherUser, userId, dispatch]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <div style={{ display: "flex", flex: "0.24" }}>
+    <div
+      style={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}
+    >
+      <div style={{ display: "flex", flex: !isMobile && "0.24" }}>
         <ProfileInfo
           userData={otherUser ? otherUserData?.userProfile : userData?.user}
           postsCount={
@@ -52,7 +57,7 @@ const Profile = (props) => {
           }
         />
       </div>
-      <div style={{ display: "flex", flex: "0.8" }}>
+      <div style={{ display: "flex", flex: !isMobile && "0.8" }}>
         <ProfilePosts otherUser={otherUser} />
       </div>
     </div>

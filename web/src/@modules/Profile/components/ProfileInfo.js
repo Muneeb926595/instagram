@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Icon, Clickable } from "@components";
+import { Icon, Clickable, AppHeader } from "@components";
 import userPlaceholder from "assets/icons/user-placeholder.png";
 import { updateUserImage } from "@store/auth/AuthActions";
 import { followUnFollow } from "@store/followers/FollowersActions";
 import firebase from "@helpers/push-notifications";
 import { lighterImage } from "@helpers/imageCompression";
 import { setShowAddNewContactModal } from "@store/modals/ModalsActions";
+import { useMobile } from "@customeHooks";
 
 const storage = firebase.storage();
 
@@ -31,6 +32,8 @@ const ProfileInfo = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const [isMobile] = useMobile();
 
   const inputFileRef = useRef();
   const [userImageHasHttp, setUserImageHasHttp] = useState(false);
@@ -118,19 +121,21 @@ const ProfileInfo = ({
 
   return (
     <div
-      className="flex flex-col py-12 h-screen "
+      className={`flex flex-col ${!isMobile && "py-12 h-screen"} `}
       style={{
         width: "100%",
         borderRight: "1px solid #ebebeb",
       }}
     >
-      <div className="flex flex-col items-center mt-8">
+      <div className="flex flex-col items-center mt-5">
+        {isMobile && <AppHeader />}
         <div
           className="rounded-lg"
           style={{
             height: "25vh",
             objectFit: "cover",
             position: "relative",
+            marginTop: isMobile && "2.5rem",
           }}
         >
           <img

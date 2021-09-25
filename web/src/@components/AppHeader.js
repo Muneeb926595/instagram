@@ -24,7 +24,7 @@ const AppHeader = () => {
   return (
     <div
       className={`flex flex-row items-center bg-white justify-between ${
-        isMobile && "w-screen pr-2"
+        isMobile && "w-screen"
       }  `}
     >
       <HeaderSearch />
