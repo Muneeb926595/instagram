@@ -10,7 +10,7 @@ import {
   Clickable,
 } from "@components";
 import { getLastPostDuration } from "@helpers/timeDateUtils";
-import { updateUserImage } from "@store/auth/AuthActions";
+import { updateUserImage, updateLoginStatus } from "@store/auth/AuthActions";
 import firebase from "@helpers/push-notifications";
 import { formateImageUrl } from "@helpers/formateImageUrl";
 import userPlaceholder from "assets/icons/user-placeholder.png";
@@ -88,6 +88,7 @@ const Navbar = () => {
   }, [myStoriesData]);
 
   const handleLogout = () => {
+    dispatch(updateLoginStatus("non-active"));
     localStorage.removeItem("userId");
     localStorage.removeItem("access_token");
     history.push("/");

@@ -34,6 +34,14 @@ const Contacts = () => {
               messageSenderId={
                 singleContact.lastMessage && singleContact.lastMessage.senderId
               }
+              isActive={
+                singleContact?.participents?.[0]?._id ===
+                localStorage.getItem("userId")
+                  ? singleContact?.participents?.[1]?.userLoginStatus ===
+                    "active"
+                  : singleContact?.participents?.[0]?.userLoginStatus ===
+                    "active"
+              }
               read={
                 singleContact?.lastMessage && singleContact.lastMessage.read
               }

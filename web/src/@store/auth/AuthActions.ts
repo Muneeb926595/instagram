@@ -5,6 +5,7 @@ import {
   getSocialLoginUrl,
   getUserByIdUrl,
   updateUserImageUrl,
+  updateLoginStatusUrl,
 } from "@api/Endpoint";
 import { axiosInstance as axios } from "@api/axios";
 import { AuthActionTypes } from "../redux/actionTypes";
@@ -260,5 +261,44 @@ const updateUserImageSuccess = (dispatch, data, userImage) => {
   dispatch({
     type: AuthActionTypes.UPDATE_USER_IMAGE_SUCCESS,
     payload: userImage,
+  });
+};
+
+export const updateLoginStatus = (loginStatus) => {
+  return (dispatch) => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_LOGIN_STATUS_START,
+    });
+    const url = updateLoginStatusUrl();
+    const request = {
+      userId: localStorage.getItem("userId"),
+      userLoginStatus: loginStatus,
+    };
+    axios
+      .put(url, request)
+      .then((res) => {
+        let { data } = res;
+        if (data) {
+          updateLoginStatusSuccess(dispatch, data);
+        } else {
+          updateLoginStatusFail(dispatch, "There user status was not updated");
+        }
+      })
+      .catch((error) => {
+        updateLoginStatusFail(dispatch, "There user status was not updated");
+      });
+  };
+};
+const updateLoginStatusSuccess = (dispatch, data) => {
+  dispatch({
+    type: AuthActionTypes.UPDATE_USER_LOGIN_STATUS_SUCCESS,
+    payload: data,
+  });
+};
+const updateLoginStatusFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: AuthActionTypes.UPDATE_USER_LOGIN_STATUS_FAIL,
+    payload: errorMessage,
   });
 };

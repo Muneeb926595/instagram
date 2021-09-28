@@ -5,7 +5,7 @@ import { Avatar, Clickable } from "@components";
 import { setShowAddNewContactModal } from "@store/modals/ModalsActions";
 import { getLastPostDuration } from "@helpers/timeDateUtils";
 
-const Contact = ({ item, index, read, messageSenderId }) => {
+const Contact = ({ item, index, read, messageSenderId, isActive }) => {
   const dispatch = useDispatch();
   const [otherContactData, setOtherContactData] = useState();
 
@@ -26,6 +26,7 @@ const Contact = ({ item, index, read, messageSenderId }) => {
             recieverId: otherContactData?._id,
             image: otherContactData?.image,
             userName: otherContactData?.userName,
+            isActive,
           },
           senderId: localStorage.getItem("userId"),
         },

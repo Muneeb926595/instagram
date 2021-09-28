@@ -147,6 +147,7 @@ exports.getUserById = async (req, res, next) => {
                     userName: 1,
                     email: 1,
                     image: 1,
+                    userLoginStatus: 1,
                   },
                 },
               ],
@@ -179,7 +180,15 @@ exports.getUserById = async (req, res, next) => {
                     $expr: { $eq: ["$_id", "$$userId"] },
                   },
                 },
-                { $project: { fullName: 1, userName: 1, email: 1, image: 1 } },
+                {
+                  $project: {
+                    fullName: 1,
+                    userName: 1,
+                    email: 1,
+                    image: 1,
+                    userLoginStatus: 1,
+                  },
+                },
               ],
             },
           },
@@ -212,6 +221,7 @@ exports.getUserById = async (req, res, next) => {
     email: user[0].email,
     createdAt: user[0].createdAt,
     updatedAt: user[0].updatedAt,
+    userLoginStatus: user[0].userLoginStatus,
     image: user[0].image ? user[0].image : "",
   };
 
@@ -240,4 +250,18 @@ exports.updateuserImage = async (req, res, next) => {
   const updatedUser = await User.findByIdAndUpdate(id, client);
 
   return res.status(200).send(updatedUser);
+};
+
+exports.updateUserLoginStatus = async (req, res, next) => {
+  const { userId, userLoginStatus } = req.body;
+  console.log("got", req.body);
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(401).send("user not found");
+  }
+  const updatedUserStatus = {
+    userLoginStatus,
+  };
+  const result = await User.findByIdAndUpdate(userId, updatedUserStatus);
+  return res.status(200).send(result);
 };

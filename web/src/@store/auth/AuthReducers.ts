@@ -102,6 +102,15 @@ const AuthReducer = (
         loading: false,
       };
     }
+    case AuthActionTypes.UPDATE_USER_LOGIN_STATUS_START: {
+      return { ...state, loading: true };
+    }
+    case AuthActionTypes.UPDATE_USER_LOGIN_STATUS_SUCCESS: {
+      return { ...state, loading: false };
+    }
+    case AuthActionTypes.UPDATE_USER_LOGIN_STATUS_FAIL: {
+      return { ...state, loading: false };
+    }
     default: {
       return state;
     }
