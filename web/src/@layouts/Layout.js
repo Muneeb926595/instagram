@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import createActivityDetector from "activity-detector";
 
-import { getUser } from "@store/auth/AuthActions";
+import { getUser, updateLoginStatus } from "@store/auth/AuthActions";
 import { socket } from "@helpers/sockets";
 import { Navbar, BottomNavigation } from "@components";
 import { useMobile } from "@customeHooks";
@@ -19,6 +20,26 @@ const Layout = (props) => {
       dispatch(getUser(localStorage.getItem("userId")));
     }
   }, [dispatch, userData]);
+
+  //check if user is active
+  useEffect(() => {
+    const detectUserActivity = () => {
+      const activityDetector = createActivityDetector({
+        timeToIdle: 60000,
+      });
+
+      activityDetector.on("idle", () => {
+        dispatch(updateLoginStatus("non-active"));
+      });
+
+      activityDetector.on("active", () => {
+        dispatch(updateLoginStatus("active"));
+      });
+    };
+
+    // detectUserActivity();
+    dispatch(updateLoginStatus("active"));
+  }, []);
 
   //join the user with sockets
   useEffect(() => {

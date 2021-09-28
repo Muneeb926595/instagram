@@ -23,6 +23,9 @@ const user = new Schema(
     password: {
       type: String,
     },
+    userLoginStatus: {
+      type: String,
+    },
   },
   {
     timestamps: true,

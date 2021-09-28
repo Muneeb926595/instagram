@@ -27,11 +27,19 @@ const Header = ({ otherUserData }) => {
             <p className="text-l font-medium ml-4 text-gray-500 font-sans capitalize">
               {otherUserData?.userName}
             </p>
-            <div className="flex justify-center items-center rounded ml-6 px-2 py-1 bg-green-100">
-              <p className="text-xs	 font-medium text-green-500 font-sans">
-                online
-              </p>
-            </div>
+            {otherUserData?.isActive ? (
+              <div className="flex justify-center items-center rounded ml-6 px-2 py-1 bg-green-100">
+                <p className="text-xs	 font-medium text-green-500 font-sans">
+                  online
+                </p>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center rounded ml-6 px-2 py-1 bg-red-100">
+                <p className="text-xs	 font-medium text-red-500 font-sans">
+                  offline
+                </p>
+              </div>
+            )}
           </>
         )}
       </div>

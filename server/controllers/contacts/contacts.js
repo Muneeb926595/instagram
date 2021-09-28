@@ -64,7 +64,7 @@ exports.createNewContact = async (senderId, recieverId) => {
     const result = await client.save();
     const contactResult = await Contact.findOne({ _id: result._id }).populate(
       "participents",
-      " _id fullName userName email image"
+      " _id fullName userName email image userLoginStatus"
     );
     newContactId = result._id;
     newContactCreated = true;

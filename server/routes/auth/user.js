@@ -41,6 +41,7 @@ const upload = multer({
 router.post("/auth/login", authController.loginUser);
 router.get("/auth/user/:id/:userId", auth, authController.getUserById);
 router.post("/auth/user", authController.createUser);
+router.put("/auth/updateloginStatus", authController.updateUserLoginStatus);
 router.post(
   "/auth/socialLogin",
   upload.single("imageFile"),

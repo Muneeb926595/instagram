@@ -14,6 +14,9 @@ export const getUserByIdUrl = (id, userId) => {
 export const updateUserImageUrl = (id) => {
   return encodeURI("auth/updateuserImage/" + id);
 };
+export const updateLoginStatusUrl = () => {
+  return encodeURI("auth/updateloginStatus");
+};
 export const getUserPostUrl = (id, page, limit, userId) => {
   return encodeURI(
     "post/userPosts/" +
