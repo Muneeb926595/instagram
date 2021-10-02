@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import createActivityDetector from "activity-detector";
 
 import { getUser, updateLoginStatus } from "@store/auth/AuthActions";
 import { socket } from "@helpers/sockets";
@@ -23,21 +22,6 @@ const Layout = (props) => {
 
   //check if user is active
   useEffect(() => {
-    const detectUserActivity = () => {
-      const activityDetector = createActivityDetector({
-        timeToIdle: 60000,
-      });
-
-      activityDetector.on("idle", () => {
-        dispatch(updateLoginStatus("non-active"));
-      });
-
-      activityDetector.on("active", () => {
-        dispatch(updateLoginStatus("active"));
-      });
-    };
-
-    // detectUserActivity();
     dispatch(updateLoginStatus("active"));
   }, []);
 
