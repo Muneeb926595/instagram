@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getUser, updateLoginStatus } from "@store/auth/AuthActions";
+import { setShowNewCallAlert } from "@store/modals/ModalsActions";
 import { socket } from "@helpers/sockets";
 import { Navbar, BottomNavigation } from "@components";
 import { useMobile } from "@customeHooks";
@@ -24,6 +25,21 @@ const Layout = (props) => {
   useEffect(() => {
     dispatch(updateLoginStatus("active"));
   }, []);
+
+  
+  useEffect(() => {
+    socket.on("stream-inform-event", ({ hostId, hostName }) => {
+      dispatch(
+        setShowNewCallAlert({
+          isVisible: true,
+          modalPayload: { hostId, hostName },
+        })
+      );
+    });
+    return () => {
+      socket.off("stream-inform-event");
+    };
+  }, [dispatch]);
 
   //join the user with sockets
   useEffect(() => {
