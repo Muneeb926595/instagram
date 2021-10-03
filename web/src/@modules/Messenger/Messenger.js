@@ -39,19 +39,6 @@ const Messenger = () => {
 
   //below are streaming sockets
 
-  useEffect(() => {
-    socket.on("stream-inform-event", ({ hostId, hostName }) => {
-      dispatch(
-        setShowNewCallAlert({
-          isVisible: true,
-          modalPayload: { hostId, hostName },
-        })
-      );
-    });
-    return () => {
-      socket.off("stream-inform-event");
-    };
-  }, [dispatch]);
 
   return (
     <div

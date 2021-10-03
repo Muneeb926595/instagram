@@ -13,13 +13,17 @@ import {
   Saved,
   Modals,
   Messenger,
+  AudioCall,
+  VideoCall
 } from "@modules";
 import "./App.css";
+import StreamingProvider from "./@contextApi/StreamingProvider";
 
 function App() {
   return (
     <div className="App">
       <ToastContainer />
+      <StreamingProvider>
       <div className="background"></div>
       <Suspense fallback={<div>Loading..</div>}>
         <Router>
@@ -33,11 +37,14 @@ function App() {
               <Route exact path="/igtv" component={Igtv} />
               <Route exact path="/saved" component={Saved} />
               <Route exact path="/messenger" component={Messenger} />
+              <Route exact path="/audio" component={AudioCall} />
+                <Route exact path="/video" component={VideoCall} />
               <Modals />
             </Layout>
           </Switch>
         </Router>
       </Suspense>
+      </StreamingProvider>
     </div>
   );
 }
