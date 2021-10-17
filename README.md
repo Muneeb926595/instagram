@@ -1,5 +1,7 @@
 # instagram
 
+site is live at ---->> https://insta-remake.netlify.app/
+
 in feature/FEAT1   --->> Complet Authentication with JWT Node and Firebase Google Login
 
 in feature/FEAT2   --->> complete optimized way Layout with the custome navigations sidepanel
