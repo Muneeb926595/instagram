@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Contacts, Body } from "./components";
 import { socket } from "@helpers/sockets";
+import { useMobile } from "@customeHooks";
 import { updateContactsLocally } from "@store/messages/MessagesActions";
 import { setShowNewCallAlert } from "@store/modals/ModalsActions";
 
@@ -11,6 +12,8 @@ const Messenger = () => {
   const dispatch = useDispatch();
   const [otherUserData, setOtherUserData] = useState({});
   const { addNewContact } = useSelector(({ Foodbook }) => Foodbook.modals);
+
+  const [isMobile] = useMobile();
 
   useEffect(() => {
     if (
@@ -39,12 +42,11 @@ const Messenger = () => {
 
   //below are streaming sockets
 
-
   return (
     <div
       style={{
         width: "100%",
-        height: "100vh",
+        height: isMobile ? "92vh" : "100vh",
         display: "flex",
         alignItems: "center",
       }}
