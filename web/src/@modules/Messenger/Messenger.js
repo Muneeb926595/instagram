@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Contacts, Body } from "./components";
 import { socket } from "@helpers/sockets";
 import { updateContactsLocally } from "@store/messages/MessagesActions";
-import { setShowNewCallAlert } from "@store/modals/ModalsActions";
 
 const Messenger = () => {
   const dispatch = useDispatch();

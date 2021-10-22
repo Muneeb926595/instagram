@@ -22,7 +22,8 @@ const VideoCall = (props) => {
       informUserForStreaming(
         localStorage.getItem("userId"),
         userData?.userName,
-        recieverId
+        recieverId,
+        true
       );
     } else {
       alert("Unable to start the call please go-back and try again");
@@ -46,10 +47,16 @@ const VideoCall = (props) => {
           <Icon type="cross" size="40px" />
         </Clickable>
       </div>
-      <div className="mb-40  justify-center items-center ">
+      <div className="w-screen mb-20" style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
         <Avatar size="150" />
         <video
-          className="w-2/4 h-2/4"
+           style={{
+            width:"80vw",
+            height:"50vh",
+            borderRadius:"40px",
+            boxShadow:"0px 0px 20px #dbdbdb",
+            marginTop:"2rem"
+          }}
           id="localVideo"
           playsInline
           autoPlay
