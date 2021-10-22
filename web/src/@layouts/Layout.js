@@ -28,11 +28,11 @@ const Layout = (props) => {
 
   
   useEffect(() => {
-    socket.on("stream-inform-event", ({ hostId, hostName }) => {
+    socket.on("stream-inform-event", ({ hostId, hostName,isVideoCall }) => {
       dispatch(
         setShowNewCallAlert({
           isVisible: true,
-          modalPayload: { hostId, hostName },
+          modalPayload: { hostId, hostName ,isVideoCall},
         })
       );
     });

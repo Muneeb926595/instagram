@@ -6,7 +6,6 @@ import { Contacts, Body } from "./components";
 import { socket } from "@helpers/sockets";
 import { useMobile } from "@customeHooks";
 import { updateContactsLocally } from "@store/messages/MessagesActions";
-import { setShowNewCallAlert } from "@store/modals/ModalsActions";
 
 const Messenger = () => {
   const dispatch = useDispatch();

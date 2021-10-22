@@ -116,10 +116,11 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on("stream-inform-event", ({ hostId, hostName, guestId }) => {
+  socket.on("stream-inform-event", ({ hostId, hostName, guestId,isVideoCall }) => {
     io.sockets.in(guestId).emit("stream-inform-event", {
       hostId,
       hostName,
+      isVideoCall
     });
   });
 
@@ -136,6 +137,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("webrtc-answer", (broadcasterId, watcherId, message) => {
-    socket.to(broadcasterId).emit("answer", watcherId, message);
+    socket.to(broadcasterId).emit("webrtc-answer", watcherId, message);
   });
 });

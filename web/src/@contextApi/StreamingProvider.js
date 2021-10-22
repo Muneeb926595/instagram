@@ -133,12 +133,13 @@ class ContextProvider extends React.Component {
   };
 
   //1. below function will be called by host to start the streaming process
-  informUserForStreaming = (hostId, hostName, guestId) => {
+  informUserForStreaming = (hostId, hostName, guestId,isVideoCall) => {
     this.setState({ hostId }); //this is for host to let him know that who is the host
     socket.emit("stream-inform-event", {
       hostId: hostId,
       hostName: hostName,
       guestId: guestId,
+      isVideoCall:isVideoCall
     });
   };
 

@@ -21,7 +21,8 @@ const AudioCall = (props) => {
       informUserForStreaming(
         localStorage.getItem("userId"),
         userData?.userName,
-        recieverId
+        recieverId,
+        false
       );
     } else {
       alert("Unable to start the call please go-back and try again");

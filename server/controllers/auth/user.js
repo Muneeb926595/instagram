@@ -254,7 +254,6 @@ exports.updateuserImage = async (req, res, next) => {
 
 exports.updateUserLoginStatus = async (req, res, next) => {
   const { userId, userLoginStatus } = req.body;
-  console.log("got", req.body);
   const user = await User.findById(userId);
   if (!user) {
     return res.status(401).send("user not found");

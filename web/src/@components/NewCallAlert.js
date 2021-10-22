@@ -27,7 +27,11 @@ const NewCallAlert = () => {
       newCallAlert?.modalPayload?.hostId,
       localStorage.getItem("userId")
     );
-    history.push("/audio");
+    if(newCallAlert?.modalPayload?.isVideoCall){
+      history.push("/video");
+    }else{
+      history.push("/audio");
+    }
     closeActionsModal();
   };
 
