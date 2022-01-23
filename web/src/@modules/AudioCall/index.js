@@ -8,7 +8,7 @@ import StreamingContext from "@contextApi/StreamingContext";
 const AudioCall = (props) => {
   const history = useHistory();
 
-  const { recieverId } = props?.location?.state || {};
+  const { recieverId, recieverImage } = props?.location?.state || {};
 
   const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
 
@@ -53,7 +53,7 @@ const AudioCall = (props) => {
         </Clickable>
       </div>
       <div className="mb-40">
-        <Avatar size="150" />
+        <Avatar uri={recieverImage} size="150" />
       </div>
       <div
         className="w-80 h-20 z-2 rounded-lg mb-20 flex justify-center items-center"

@@ -9,7 +9,7 @@ const VideoCall = (props) => {
   const history = useHistory();
   const videoRef = useRef(null);
 
-  const { recieverId } = props?.location?.state || {};
+  const { recieverId, recieverImage } = props?.location?.state || {};
 
   const userData = useSelector(({ Foodbook }) => Foodbook.auth.user);
 
@@ -55,7 +55,7 @@ const VideoCall = (props) => {
           alignItems: "center",
         }}
       >
-        <Avatar size="150" />
+        <Avatar uri={recieverImage} size="150" />
         <video
           style={{
             height: "50vh",

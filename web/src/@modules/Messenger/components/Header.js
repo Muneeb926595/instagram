@@ -53,6 +53,7 @@ const Header = ({ otherUserData }) => {
                     pathname: "/audio",
                     state: {
                       recieverId: otherUserData?.recieverId,
+                      recieverImage: otherUserData?.image,
                     },
                   });
                 }}
@@ -67,6 +68,7 @@ const Header = ({ otherUserData }) => {
                     pathname: "/video",
                     state: {
                       recieverId: otherUserData?.recieverId,
+                      recieverImage: otherUserData?.image,
                     },
                   });
                 }}
