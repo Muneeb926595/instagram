@@ -48,7 +48,7 @@ const VideoCall = (props) => {
         </Clickable>
       </div>
       <div
-        className="w-screen mb-20"
+        className=" mb-20"
         style={{
           display: "flex",
           flexDirection: "column",
