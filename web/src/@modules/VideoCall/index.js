@@ -47,15 +47,21 @@ const VideoCall = (props) => {
           <Icon type="cross" size="40px" />
         </Clickable>
       </div>
-      <div className="w-screen mb-20" style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
+      <div
+        className="w-screen mb-20"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <Avatar size="150" />
         <video
-           style={{
-            width:"80vw",
-            height:"50vh",
-            borderRadius:"40px",
-            boxShadow:"0px 0px 20px #dbdbdb",
-            marginTop:"2rem"
+          style={{
+            height: "50vh",
+            borderRadius: "40px",
+            boxShadow: "0px 0px 20px #dbdbdb",
+            marginTop: "2rem",
           }}
           id="localVideo"
           playsInline
